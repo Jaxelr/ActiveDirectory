@@ -13,7 +13,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Api</RootNamespace>
     <AssemblyName>Api.ActiveDirectory</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
@@ -21,6 +21,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <TargetFrameworkProfile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -83,9 +84,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
@@ -149,11 +150,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Api.Model\Api.Model.csproj">
-      <Project>{37fb0a24-3754-43e8-a3fd-57eb872b9361}</Project>
+      <Project>{603779ef-9823-4fa1-8a31-c3dd2aa89e21}</Project>
       <Name>Api.Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repoes\Repoes.csproj">
-      <Project>{d55a1ad0-fe3e-4f18-a035-5a52c6ca8525}</Project>
+      <Project>{01958360-cfea-491a-9385-a1ddc731bd90}</Project>
       <Name>Repoes</Name>
     </ProjectReference>
   </ItemGroup>
