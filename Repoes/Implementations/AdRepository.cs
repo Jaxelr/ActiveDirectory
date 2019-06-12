@@ -10,16 +10,16 @@ namespace Repoes
 {
     public class AdRepository : IAdRepository
     {
-        private readonly IEnumerable<string> _domains;
+        private readonly IEnumerable<string> domains;
 
         public AdRepository()
         {
-            _domains = new List<string> { ToLDAP(Domain.GetCurrentDomain().Name) };
+            domains = new List<string> { ToLDAP(Domain.GetCurrentDomain().Name) };
         }
 
         public AdRepository(IEnumerable<string> domains)
         {
-            _domains = domains.Select(x => ToLDAP(x));
+            this.domains = domains.Select(x => ToLDAP(x));
         }
 
         public (bool, string) AuthenticateUser(string userName, string password, string domain)
@@ -28,7 +28,7 @@ namespace Repoes
             {
                 if (domain is null)
                 {
-                    domain = _domains.FirstOrDefault();
+                    domain = domains.FirstOrDefault();
                 }
                 else
                 {
@@ -92,7 +92,7 @@ namespace Repoes
                 return response;
             }
 
-            return _domains.AsParallel().Select(x => GetGroupUsers(x)).SelectMany(y => y).ToList();
+            return domains.AsParallel().Select(x => GetGroupUsers(x)).SelectMany(y => y).ToList();
         }
 
         public IEnumerable<UserGroup> GetUserGroups(string userName)
@@ -129,7 +129,7 @@ namespace Repoes
                 return userGroups;
             }
 
-            return _domains.AsParallel().Select(x => GetUserGroups(x)).SelectMany(y => y).ToList();
+            return domains.AsParallel().Select(x => GetUserGroups(x)).SelectMany(y => y).ToList();
         }
 
         public User GetUserInfo(string userName)
@@ -159,7 +159,7 @@ namespace Repoes
                 return user;
             }
 
-            return _domains
+            return domains
                 .AsParallel()
                 .Select(x => GetUserInfo(x))
                 .FirstOrDefault(y => y.UserName != null);

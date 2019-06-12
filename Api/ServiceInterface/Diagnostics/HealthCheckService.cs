@@ -9,16 +9,18 @@ namespace Api.ServiceInterface
 {
     public class HealthCheckService : Service
     {
-        private readonly IHealthChecker _healthChecker;
+        private readonly IHealthChecker healthChecker;
 
         public HealthCheckService(IHealthChecker healthChecker)
         {
-            _healthChecker = healthChecker;
+            this.healthChecker = healthChecker;
         }
 
+#pragma warning disable IDE0060 // Remove unused parameter
         public object Get(HealthCheck request)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
-            var result = _healthChecker.Check();
+            var result = healthChecker.Check();
             var statusCode = (result.Status == HealthCheckStatus.NotOkay)
                 ? HttpStatusCode.ServiceUnavailable
                 : HttpStatusCode.OK;

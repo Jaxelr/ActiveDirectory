@@ -9,7 +9,9 @@ namespace Api.Helpers
 {
     public static class CacheHelper
     {
+#pragma warning disable IDE0060 // Remove unused parameter
         public static object CachedContext<T>(this IRequestContext requestContext, ICacheClient cacheClient, string cacheKey, TimeSpan? expireCacheIn, Func<T> factoryFn)
+#pragma warning restore IDE0060 // Remove unused parameter
             where T : class
         {
             string enable = Default.AppSettingKeys.CacheEnabled.ToString();
