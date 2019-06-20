@@ -1,21 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{22F91C0C-30FA-49A8-A269-F8FBC8A2E6B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ActiveDirectory", "src\ActiveDirectory.csproj", "{990C30E7-F5A2-4AD8-9F80-BD0D18E9AD4C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{54FEC219-B165-45B0-ACFA-EAED03B23E89}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".SolutionItems", ".SolutionItems", "{C62A591C-F4B1-47B6-B078-A19D84A196C8}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
-		.gitignore = .gitignore
-		LICENSE = LICENSE
-		README.md = README.md
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repoes", "Repoes\Repoes.csproj", "{01958360-CFEA-491A-9385-A1DDC731BD90}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Model", "Api.Model\Api.Model.csproj", "{603779EF-9823-4FA1-8A31-C3DD2AA89E21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,23 +16,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{22F91C0C-30FA-49A8-A269-F8FBC8A2E6B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22F91C0C-30FA-49A8-A269-F8FBC8A2E6B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22F91C0C-30FA-49A8-A269-F8FBC8A2E6B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22F91C0C-30FA-49A8-A269-F8FBC8A2E6B3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{01958360-CFEA-491A-9385-A1DDC731BD90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01958360-CFEA-491A-9385-A1DDC731BD90}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01958360-CFEA-491A-9385-A1DDC731BD90}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01958360-CFEA-491A-9385-A1DDC731BD90}.Release|Any CPU.Build.0 = Release|Any CPU
-		{603779EF-9823-4FA1-8A31-C3DD2AA89E21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{603779EF-9823-4FA1-8A31-C3DD2AA89E21}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{603779EF-9823-4FA1-8A31-C3DD2AA89E21}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{603779EF-9823-4FA1-8A31-C3DD2AA89E21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{990C30E7-F5A2-4AD8-9F80-BD0D18E9AD4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{990C30E7-F5A2-4AD8-9F80-BD0D18E9AD4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{990C30E7-F5A2-4AD8-9F80-BD0D18E9AD4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{990C30E7-F5A2-4AD8-9F80-BD0D18E9AD4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {0A9E6CE7-57A8-465A-BAD1-B4DB03AD073B}
+		SolutionGuid = {653B66AD-7081-4DE7-9750-EC8A869AB7F9}
 	EndGlobalSection
 EndGlobal
