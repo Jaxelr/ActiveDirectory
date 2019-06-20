@@ -25,7 +25,7 @@ namespace ActiveDirectory.Modules
                 {
                     string group = routeData.As<string>("group");
 
-                    string key = string.Concat(nameof(GetGroupUsers), ":", group);
+                    string key = Key.Create<GetGroupUsers>(group);
 
                     if (cache.TryGetValue(key, out object obj))
                     {
