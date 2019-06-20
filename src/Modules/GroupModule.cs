@@ -5,7 +5,7 @@ using Carter.Request;
 using Carter.Response;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace AdSample.Modules
+namespace ActiveDirectory.Modules
 {
     public class GroupModule : CarterModule
     {
@@ -41,7 +41,10 @@ namespace AdSample.Modules
                         return Task.CompletedTask;
                     }
 
-                    cache.Set(key, response);
+                    var options = new MemoryCacheEntryOptions()
+                        .SetSlidingExpiration(TimeSpan.FromSeconds(60));
+
+                    cache.Set(key, response, options);
 
                     res.StatusCode = 200;
                     return res.Negotiate(response);

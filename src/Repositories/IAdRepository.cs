@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AdSample
+namespace ActiveDirectory
 {
     public interface IAdRepository
     {

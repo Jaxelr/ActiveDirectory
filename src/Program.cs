@@ -1,4 +1,4 @@
-namespace AdSample
+namespace ActiveDirectory
 {
     using System.IO;
     using Microsoft.AspNetCore.Hosting;

@@ -5,7 +5,7 @@ using Carter.Request;
 using Carter.Response;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace AdSample.Modules
+namespace ActiveDirectory.Modules
 {
     public class UserModule : CarterModule
     {

@@ -1,6 +1,6 @@
 ﻿using Carter.OpenApi;
 
-namespace AdSample.Modules
+namespace ActiveDirectory.Modules
 {
     public class GetUser : RouteMetaData
     {

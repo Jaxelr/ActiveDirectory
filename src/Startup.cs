@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
 using Microsoft.Extensions.Hosting;
 
-namespace AdSample
+namespace ActiveDirectory
 {
     public class Startup
     {

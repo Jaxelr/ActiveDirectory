@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Carter.OpenApi;
 
-namespace AdSample.Modules
+namespace ActiveDirectory.Modules
 {
     public class GetUserGroups : RouteMetaData
     {

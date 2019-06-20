@@ -1,4 +1,4 @@
-namespace AdSample
+namespace ActiveDirectory
 {
     public class User
     {

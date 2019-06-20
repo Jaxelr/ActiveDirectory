@@ -4,7 +4,7 @@ using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 
-namespace AdSample
+namespace ActiveDirectory
 {
     public class AdRepository : IAdRepository
     {
