@@ -13,7 +13,7 @@ namespace ActiveDirectory.Modules
             {
                 Code = 200,
                 Description = $"A list of {nameof(User)}s",
-                Response = typeof(IEnumerable<UserGroup>)
+                Response = typeof(IEnumerable<User>)
             }
         };
 

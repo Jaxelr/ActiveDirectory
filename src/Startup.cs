@@ -41,7 +41,10 @@ namespace ActiveDirectory
             //Extract the AppSettings information from the appsettings config.
             Configuration.GetSection(nameof(AppSettings)).Bind(settings);
 
-            services.AddSingleton(settings);
+            services.AddSingleton(settings); //AppSettings type
+            services.AddSingleton(settings.Cache); //CacheConfig type
+            services.AddSingleton<Store>();
+
             services.AddSingleton<IAdRepository>(new AdRepository(settings.Domains));
 
             services.AddCarter();
