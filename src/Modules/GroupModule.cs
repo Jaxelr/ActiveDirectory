@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Carter;
 using Carter.Request;
@@ -25,7 +24,8 @@ namespace ActiveDirectory.Modules
                 {
                     string group = routeData.As<string>("group");
 
-                    object response = store.GetOrSet<GetGroupUsers, IEnumerable<User>>(group, () => repository.GetGroupUsers(group));
+                    var response = store.GetOrSetCache(group, () =>
+                        new GetGroupUsersResponse() { Response = repository.GetGroupUsers(group) });
 
                     if (response is null)
                     {
