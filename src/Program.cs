@@ -13,6 +13,7 @@ namespace ActiveDirectory
             var host = new WebHostBuilder()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseKestrel()
+                .UseIISIntegration()
                 .UseHealthChecks("/healthcheck")
                 .UseStartup<Startup>()
                 .Build();
