@@ -14,9 +14,9 @@ namespace ActiveDirectory
             this.props = props;
         }
 
-        public object GetOrSet<TIn, TOut>(string key, Func<TOut> fn)
+        public object GetOrSetCache<T>(string key, Func<T> fn)
         {
-            string realKey = Key.Create<TIn>(key);
+            string realKey = Key.Create<T>(key);
 
             if (props.CacheEnabled && cache.TryGetValue(realKey, out object cachedRes))
             {
