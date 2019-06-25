@@ -14,27 +14,40 @@ namespace ActiveDirectory
             this.props = props;
         }
 
-        public object GetOrSetCache<T>(string key, Func<T> fn)
+        public T GetOrSetCache<T>(string key, Func<T> fn)
         {
-            string realKey = Key.Create<T>(key);
+            var (res, cacheHit) = GetCache(key, fn);
 
-            if (props.CacheEnabled && cache.TryGetValue(realKey, out object cachedRes))
-            {
-                return cachedRes;
-            }
+            if (!cacheHit)
+                SetCache(key, res);
 
-            var res = fn();
+            return res;
+        }
 
+        public void SetCache<T>(string key, T res)
+        {
             if (props.CacheEnabled)
-            { 
+            {
+                string realKey = Key.Create<T>(key);
+
                 var options = new MemoryCacheEntryOptions()
                     .SetSlidingExpiration(TimeSpan.FromSeconds(props.CacheTimespan))
                     .SetSize(props.CacheMaxSize);
 
                 cache.Set(realKey, res, options);
             }
+        }
 
-            return res;
+        public (T, bool) GetCache<T>(string key, Func<T> fn)
+        {
+            string realKey = Key.Create<T>(key);
+
+            if (props.CacheEnabled && cache.TryGetValue(realKey, out T cachedRes))
+            {
+                return (cachedRes, true);
+            }
+
+            return (fn(), false);
         }
     }
 }
