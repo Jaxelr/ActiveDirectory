@@ -1,9 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using Carter;
+﻿using Carter;
 using Carter.Request;
-using Carter.Response;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace ActiveDirectory.Modules
 {
@@ -11,98 +7,56 @@ namespace ActiveDirectory.Modules
     {
 #pragma warning disable IDE0052 // Remove unread private members
         private readonly IAdRepository repository;
-        private readonly IMemoryCache cache;
+        private readonly Store store;
 #pragma warning restore IDE0052 // Remove unread private members
 
-        public UserModule(IAdRepository repository, IMemoryCache cache)
+        public UserModule(IAdRepository repository, Store store)
         {
             this.repository = repository;
-            this.cache = cache;
+            this.store = store;
 
             Get<GetUserGroups>("/UserGroups/{username}", (req, res, routeData) =>
             {
-                try
+                string username = routeData.As<string>("username");
+
+                return res.ExecHandler(username, store, () =>
                 {
-                    string username = routeData.As<string>("username");
-
-                    var response = repository.GetUserGroups(username);
-
-                    if (response is null)
-                    {
-                        res.StatusCode = 204;
-                        return Task.CompletedTask;
-                    }
-
-                    res.StatusCode = 200;
-                    return res.Negotiate(response);
-                }
-                catch (Exception ex)
-                {
-                    res.StatusCode = 500;
-                    return res.Negotiate(ex.Message);
-                }
+                    return repository.GetUserGroups(username);
+                });
             });
 
             Get<GetUser>("/User/{username}", (req, res, routeData) =>
             {
-                try
+                string username = routeData.As<string>("username");
+
+                return res.ExecHandler(username, store, () =>
                 {
-                    string username = routeData.As<string>("username");
-
-                    var response = repository.GetUserInfo(username);
-
-                    if (response is null)
-                    {
-                        res.StatusCode = 204;
-                        return Task.CompletedTask;
-                    }
-
-                    res.StatusCode = 200;
-                    return res.Negotiate(response);
-                }
-                catch (Exception ex)
-                {
-                    res.StatusCode = 500;
-                    return res.Negotiate(ex.Message);
-                }
+                    return repository.GetUserInfo(username);
+                });
             });
 
             Get<GetAuthenticateUser>("/AuthenticateUser/{username}/{password}", (req, res, routeData) =>
             {
-                try
-                {
-                    string username = routeData.As<string>("username");
-                    string password = routeData.As<string>("password");
+                string username = routeData.As<string>("username");
+                string password = routeData.As<string>("password");
 
-                    var response = repository.AuthenticateUser(username, password);
-
-                    res.StatusCode = 200;
-                    return res.Negotiate(response);
-                }
-                catch (Exception ex)
+                return res.ExecHandler(() =>
                 {
-                    res.StatusCode = 500;
-                    return res.Negotiate(ex.Message);
-                }
+                    return repository.AuthenticateUser(username, password);
+                });
             });
 
-            Get<GetIsUserInGroup>("UserInGroup/{username}/{groups}", (req, res, routeData) =>
+            Get<GetIsUserInGroup>("/UserInGroup/{username}/{groups}", (req, res, routeData) =>
             {
-                try
-                {
-                    string username = routeData.As<string>("username");
-                    string groups = routeData.As<string>("groups");
+                string username = routeData.As<string>("username");
+                string[] groups = routeData.As<string>("groups").Split(',');
 
-                    bool response = repository.IsUserInGroups(username, groups.Split(','));
+                string key = string.Concat(username, groups);
 
-                    res.StatusCode = 200;
-                    return res.Negotiate(response);
-                }
-                catch (Exception ex)
+                return res.ExecHandler(key, store, () =>
                 {
-                    res.StatusCode = 500;
-                    return res.Negotiate(ex.Message);
-                }
+                    return repository.IsUserInGroups(username, groups);
+                });
             });
         }
     }
