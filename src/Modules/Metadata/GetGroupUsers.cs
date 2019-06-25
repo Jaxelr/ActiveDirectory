@@ -5,7 +5,10 @@ namespace ActiveDirectory.Modules
 {
     public class GetGroupUsers : RouteMetaData
     {
-        public override string Description { get; } = "Returns a user by group";
+        const string TagInfo = "Group User";
+        const string DescriptionInfo = "Returns a user by group";
+
+        public override string Description { get; } = DescriptionInfo;
 
         public override RouteMetaDataResponse[] Responses { get; } =
         {
@@ -17,6 +20,8 @@ namespace ActiveDirectory.Modules
             }
         };
 
-        public override string Tag { get; } = "Group User";
+        public override string Tag { get; } = TagInfo;
+
+        public override string OperationId => nameof(GetGroupUsers);
     }
 }
