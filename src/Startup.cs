@@ -46,7 +46,10 @@ namespace ActiveDirectory
             services.AddSingleton(settings.Cache); //CacheConfig type
             services.AddSingleton<Store>();
 
-            services.AddSingleton<IAdRepository>(new AdRepository(settings.Domains));
+            if (settings.Domains.Length == 1 && string.IsNullOrEmpty(settings.Domains[0]))
+                services.AddSingleton<IAdRepository>(new AdRepository());
+            else
+                services.AddSingleton<IAdRepository>(new AdRepository(settings.Domains));
 
             services.AddCarter();
             services.AddMemoryCache();

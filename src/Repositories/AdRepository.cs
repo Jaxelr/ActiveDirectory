@@ -15,7 +15,7 @@ namespace ActiveDirectory
             Domains = new List<string> { ToLDAP(Domain.GetCurrentDomain().Name) };
         }
 
-        public AdRepository(IEnumerable<string> domains)
+        public AdRepository(IEnumerable<string> domains) 
         {
             Domains = domains.Select(x => ToLDAP(x));
         }
