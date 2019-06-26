@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ActiveDirectory.Entities;
 using Carter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting.Server.Features;
@@ -59,8 +60,8 @@ namespace ActiveDirectory
 
             app.UseSwaggerUI(opt =>
             {
-                opt.RoutePrefix = "openapi/ui";
-                opt.SwaggerEndpoint("/openapi", ServiceName);
+                opt.RoutePrefix = RouteDefinition.RoutePrefix;
+                opt.SwaggerEndpoint(RouteDefinition.SwaggerEndpoint, ServiceName);
             });
         }
 

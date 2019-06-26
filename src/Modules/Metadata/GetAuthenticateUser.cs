@@ -4,8 +4,8 @@ namespace ActiveDirectory.Modules
 {
     public class GetAuthenticateUser : RouteMetaData
     {
-        const string TagInfo = "User";
-        const string DescriptionInfo = "Returns an authenticated user";
+        private const string TagInfo = "User";
+        private const string DescriptionInfo = "Returns an authenticated user";
 
         public override string Description { get; } = DescriptionInfo;
 

@@ -4,8 +4,8 @@ namespace ActiveDirectory.Modules
 {
     public class GetIsUserInGroup : RouteMetaData
     {
-        const string TagInfo = "User";
-        const string DescriptionInfo = "Returns an user that belongs to the group";
+        private const string TagInfo = "User";
+        private const string DescriptionInfo = "Returns an user that belongs to the group";
 
         public override string Description { get; } = DescriptionInfo;
 

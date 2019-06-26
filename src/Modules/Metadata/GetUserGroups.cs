@@ -5,8 +5,8 @@ namespace ActiveDirectory.Modules
 {
     public class GetUserGroups : RouteMetaData
     {
-        const string DescriptionInfo = "Returns a user domain groups";
-        const string TagInfo = "User";
+        private const string DescriptionInfo = "Returns a user domain groups";
+        private const string TagInfo = "User";
 
         public override string Description { get; } = DescriptionInfo;
 

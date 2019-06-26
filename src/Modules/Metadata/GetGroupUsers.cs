@@ -1,12 +1,12 @@
-﻿using Carter.OpenApi;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Carter.OpenApi;
 
 namespace ActiveDirectory.Modules
 {
     public class GetGroupUsers : RouteMetaData
     {
-        const string TagInfo = "Group User";
-        const string DescriptionInfo = "Returns a user by group";
+        private const string TagInfo = "Group User";
+        private const string DescriptionInfo = "Returns a user by group";
 
         public override string Description { get; } = DescriptionInfo;
 

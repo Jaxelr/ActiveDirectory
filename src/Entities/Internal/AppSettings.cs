@@ -5,6 +5,4 @@
         public CacheConfig Cache { get; set; }
         public string[] Domains { get; set; }
     }
-
-
 }
