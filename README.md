@@ -28,6 +28,6 @@ And also allows to configure the expiry length:
 The endpoint of root/healthcheck for each requests includes a json heartbeat to determine if the service is online. This was done using the library of [NotDeadYet](https://github.com/uglybugger/NotDeadYet) for more information check the github repo.
 
 
-## Swagger
+## OpenApi
 
-The Swagger version used is Version 1.2. 
+The OpenApi version used is Version 3.0.0. 
