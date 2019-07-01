@@ -165,13 +165,15 @@ namespace ActiveDirectory
                 .FirstOrDefault(y => y.UserName != null);
         }
 
-        public bool IsUserInGroups(string userName, IEnumerable<string> groups)
+        public (bool, IEnumerable<string>) IsUserInGroups(string userName, IEnumerable<string> groups)
         {
             var userGroups = groups
                 .Intersect(GetUserGroups(userName)
                 .Select(x => x.GroupName));
 
-            return userGroups.Count() > 0 ? true : false;
+            bool result = userGroups.Count() > 0 ? true : false;
+
+            return (result, userGroups);
         }
 
         private string ToLDAP(string value)

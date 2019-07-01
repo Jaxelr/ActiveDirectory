@@ -16,6 +16,6 @@ namespace ActiveDirectory
 
         User GetUserInfo(string userName);
 
-        bool IsUserInGroups(string userName, IEnumerable<string> groups);
+        (bool, IEnumerable<string>) IsUserInGroups(string userName, IEnumerable<string> groups);
     }
 }

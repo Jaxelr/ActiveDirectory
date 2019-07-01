@@ -1,4 +1,6 @@
-﻿using Carter;
+﻿using System.Collections.Generic;
+using ActiveDirectory.Entities.Operations;
+using Carter;
 using Carter.Request;
 
 namespace ActiveDirectory.Modules
@@ -42,7 +44,13 @@ namespace ActiveDirectory.Modules
 
                 return res.ExecHandler(() =>
                 {
-                    return repository.AuthenticateUser(username, password);
+                    (bool IsValid, string Message) = repository.AuthenticateUser(username, password);
+
+                    return new AuthenticUserResponse()
+                    {
+                        IsValid = IsValid,
+                        Message = Message
+                    };
                 });
             });
 
@@ -55,7 +63,13 @@ namespace ActiveDirectory.Modules
 
                 return res.ExecHandler(key, store, () =>
                 {
-                    return repository.IsUserInGroups(username, groups);
+                    (bool Belongs, IEnumerable<string> Groups) = repository.IsUserInGroups(username, groups);
+
+                    return new IsUserInGroupResponse()
+                    {
+                        Belongs = Belongs,
+                        Groups = Groups
+                    };
                 });
             });
         }
