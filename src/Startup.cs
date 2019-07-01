@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ActiveDirectory.Entities;
 using Carter;
@@ -46,18 +47,19 @@ namespace ActiveDirectory
             services.AddSingleton(settings.Cache); //CacheConfig type
             services.AddSingleton<Store>();
 
-            if (settings.Domains.Length == 1 && string.IsNullOrEmpty(settings.Domains[0]))
-                services.AddSingleton<IAdRepository>(new AdRepository());
-            else
-                services.AddSingleton<IAdRepository>(new AdRepository(settings.Domains));
+            var _ = (Empty(settings.Domains)) ?
+                    services.AddSingleton<IAdRepository>(new AdRepository()) :
+                    services.AddSingleton<IAdRepository>(new AdRepository(settings.Domains));
 
             services.AddCarter();
             services.AddMemoryCache();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, AppSettings appSettings)
         {
-            var addresses = app.ServerFeatures.Get<IServerAddressesFeature>().Addresses;
+            ICollection<string> addresses = Empty(appSettings.Addresses) ?
+                                            app.ServerFeatures.Get<IServerAddressesFeature>().Addresses :
+                                            appSettings.Addresses;
 
             app.UseCarter(GetOptions(addresses));
 
@@ -70,5 +72,16 @@ namespace ActiveDirectory
 
         private CarterOptions GetOptions(ICollection<string> addresses) =>
             new CarterOptions(openApiOptions: new OpenApiOptions(ServiceName, addresses, new Dictionary<string, OpenApiSecurity>()));
+
+        /// <summary>
+        /// Since the mapping from the DI returns an instantiated class as based on the appsettings.json
+        /// config file, we must check if the only element included is not empty, then we can define it as empty.
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
+        private bool Empty(ICollection<string> collection) =>
+            (collection.Count == 1 && string.IsNullOrEmpty(collection.FirstOrDefault())) ?
+            true :
+            false;
     }
 }
