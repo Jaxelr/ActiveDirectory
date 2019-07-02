@@ -1,12 +1,15 @@
 # Active Directory Service
 
-This ws includes LDAP configuration pertaining to the MS AD for onsite utilization. 
+This web service is an http wrapper over basic LDAP calls to the Microsoft Active Directory service, i mostly use it on clients for quick onsite discovery. 
 
-## Known Challenges
+## Known Challenges & Issues
 
-Some requests to the LDAP can be incredibly costly and take a few seconds, to mitigate this scenario the onmemory cache has been included to help with recurring requests.
+Some requests to the LDAP can be incredibly costly and take a few seconds, to mitigate this scenario an in-memory cache has been included to help with recurring requests.
 
-## Configurations
+- The Current operation of AuthenticateUser is not secure, and should be avoided for usage.
+- Use https if prod use is expected, since the content of these operations is sensitive in nature.
+
+## Configuration
 
 Some configurations that are included on the appsettings are:
 
@@ -40,7 +43,6 @@ The current appsettings.json can be configured manually:
 ## HealthChecker
 
 The endpoint of root/healthcheck for each requests includes a json heartbeat to determine if the service is online. This was done using the library of [Microsoft.AspnetCore.HealthChecks](https://github.com/dotnet-architecture/HealthChecks) for more information check the github repo.
-
 
 ## OpenApi
 
