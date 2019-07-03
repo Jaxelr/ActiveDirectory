@@ -37,23 +37,6 @@ namespace ActiveDirectory.Modules
                 });
             });
 
-            Get<GetAuthenticateUser>("/AuthenticateUser/{username}/{password}", (req, res, routeData) =>
-            {
-                string username = routeData.As<string>("username");
-                string password = routeData.As<string>("password");
-
-                return res.ExecHandler(() =>
-                {
-                    (bool IsValid, string Message) = repository.AuthenticateUser(username, password);
-
-                    return new AuthenticUserResponse()
-                    {
-                        IsValid = IsValid,
-                        Message = Message
-                    };
-                });
-            });
-
             Get<GetIsUserInGroup>("/UserInGroup/{username}/{groups}", (req, res, routeData) =>
             {
                 string username = routeData.As<string>("username");
@@ -69,6 +52,22 @@ namespace ActiveDirectory.Modules
                     {
                         Belongs = Belongs,
                         Groups = Groups
+                    };
+                });
+            });
+
+            Post<PostAuthenticateUser>("/AuthenticateUser/{username}", (req, res, routeData) =>
+            {
+                string username = routeData.As<string>("username");
+
+                return res.ExecHandler<AuthenticUserRequest, AuthenticUserResponse>(req, (userRequest) =>
+                {
+                    (bool IsValid, string Message) = repository.AuthenticateUser(username, userRequest.Password);
+
+                    return new AuthenticUserResponse()
+                    {
+                        IsValid = IsValid,
+                        Message = Message
                     };
                 });
             });

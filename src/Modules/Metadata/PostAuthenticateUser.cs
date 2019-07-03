@@ -2,7 +2,7 @@
 
 namespace ActiveDirectory.Modules
 {
-    public class GetAuthenticateUser : RouteMetaData
+    public class PostAuthenticateUser : RouteMetaData
     {
         private const string TagInfo = "User";
         private const string DescriptionInfo = "Returns an authenticated user";
@@ -21,6 +21,6 @@ namespace ActiveDirectory.Modules
 
         public override string Tag { get; } = TagInfo;
 
-        public override string OperationId { get; } = nameof(GetAuthenticateUser);
+        public override string OperationId { get; } = nameof(PostAuthenticateUser);
     }
 }
