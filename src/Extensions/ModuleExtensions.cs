@@ -58,7 +58,7 @@ namespace ActiveDirectory
             {
                 var (validationResult, data) = req.BindAndValidate<TIn>();
 
-                if (validationResult.IsValid)
+                if (!validationResult.IsValid)
                 {
                     res.StatusCode = 422;
                     return res.Negotiate(validationResult.GetFormattedErrors());
@@ -88,7 +88,7 @@ namespace ActiveDirectory
             {
                 var (validationResult, data) = req.BindAndValidate<TIn>();
 
-                if (validationResult.IsValid)
+                if (!validationResult.IsValid)
                 {
                     res.StatusCode = 422;
                     return res.Negotiate(validationResult.GetFormattedErrors());
