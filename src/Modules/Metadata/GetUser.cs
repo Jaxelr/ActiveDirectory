@@ -16,6 +16,11 @@ namespace ActiveDirectory.Modules
                 Code = 200,
                 Description = $"An object of type {nameof(User)}",
                 Response = typeof(User)
+            },
+            new RouteMetaDataResponse
+            {
+                Code = 204,
+                Description = $"An empty result pertaining to a not found {nameof(User)}"
             }
         };
 
