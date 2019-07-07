@@ -1,4 +1,6 @@
-# Active Directory Service
+# Active Directory Service 
+
+[![Build Status](https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_apis/build/status/Jaxelr.ActiveDirectory?branchName=master)](https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_build/latest?definitionId=1&branchName=master)
 
 This web service is an http wrapper over basic LDAP calls to the Microsoft Active Directory service, i mostly use it on clients for quick onsite domain discovery. 
 
