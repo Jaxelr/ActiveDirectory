@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".SolutionItems", ".Solution
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveDirectoryTests", "tests\ActiveDirectoryTests\ActiveDirectoryTests.csproj", "{CD1C03A0-B83C-43A9-89F5-9A7806DA07AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveDirectoryTests", "tests\ActiveDirectoryTests.csproj", "{CD1C03A0-B83C-43A9-89F5-9A7806DA07AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
