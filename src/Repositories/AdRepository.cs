@@ -15,12 +15,25 @@ namespace ActiveDirectory
             Domains = new List<string> { ToLDAP(Domain.GetCurrentDomain().Name) };
         }
 
-        public AdRepository(IEnumerable<string> domains) 
+        public AdRepository(IEnumerable<string> domains)
         {
             Domains = domains.Select(x => ToLDAP(x));
         }
 
-        public (bool, string) AuthenticateUser(string userName, string password) => AuthenticateUser(userName, password, Domains.First());
+        public (bool, string) AuthenticateUser(string userName, string password)
+        {
+            (bool allowed, string message) resp = (false, string.Empty);
+
+            foreach (string x in Domains)
+            {
+                resp = AuthenticateUser(userName, password, x);
+
+                if (resp.allowed)
+                    return resp;
+            }
+
+            return resp;
+        }
 
         public (bool, string) AuthenticateUser(string userName, string password, string domain)
         {
@@ -92,7 +105,7 @@ namespace ActiveDirectory
                 return response;
             }
 
-            return Domains.AsParallel().Select(x => GetGroupUsers(x)).SelectMany(y => y).ToList();
+            return Domains.AsParallel().Select(x => GetGroupUsers(x)).SelectMany(y => y);
         }
 
         public IEnumerable<UserGroup> GetUserGroups(string userName)
@@ -129,7 +142,7 @@ namespace ActiveDirectory
                 return userGroups;
             }
 
-            return Domains.AsParallel().Select(x => GetUserGroups(x)).SelectMany(y => y).ToList();
+            return Domains.AsParallel().Select(x => GetUserGroups(x)).SelectMany(y => y);
         }
 
         public User GetUserInfo(string userName)
@@ -220,7 +233,7 @@ namespace ActiveDirectory
             var de = new DirectoryEntry(ToLDAP(domain));
 
             //Ignore other objects
-            if (de.SchemaClassName == "group")
+            if (de?.SchemaClassName == "group")
             {
                 return de.Properties["name"].Value?.ToString();
             }
@@ -232,7 +245,6 @@ namespace ActiveDirectory
             => groups
             .AsParallel()
             .Select(x => GetGroupUsers(x))
-            .SelectMany(y => y)
-            .ToList();
+            .SelectMany(y => y);
     }
 }
