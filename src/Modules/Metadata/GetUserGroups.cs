@@ -12,17 +12,17 @@ namespace ActiveDirectory.Modules
 
         public override RouteMetaDataResponse[] Responses { get; } =
         {
-        new RouteMetaDataResponse
-        {
-            Code = 200,
-            Description = $"A list of {nameof(UserGroup)}s",
-            Response = typeof(IEnumerable<UserGroup>)
-        },
-        new RouteMetaDataResponse
-        {
-            Code = 204,
-            Description = $"An empty result pertaining to a not found {nameof(UserGroup)}"
-        }
+            new RouteMetaDataResponse
+            {
+                Code = 200,
+                Description = $"A list of {nameof(UserGroup)}s",
+                Response = typeof(IEnumerable<UserGroup>)
+            },
+            new RouteMetaDataResponse
+            {
+                Code = 204,
+                Description = $"An empty result pertaining to a not found {nameof(UserGroup)}"
+            }
     };
 
         public override string Tag { get; } = TagInfo;

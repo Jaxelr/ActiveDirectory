@@ -17,6 +17,11 @@ namespace ActiveDirectory.Modules
                 Code = 200,
                 Description = $"A list of {nameof(User)}s",
                 Response = typeof(IEnumerable<User>)
+            },
+            new RouteMetaDataResponse
+            {
+                Code = 204,
+                Description = $"An empty result pertaining to a not found {nameof(UserGroup)}"
             }
         };
 
