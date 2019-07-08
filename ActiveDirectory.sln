@@ -9,9 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".SolutionItems", ".Solution
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
+		codecov.yml = codecov.yml
 		LICENSE = LICENSE
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveDirectoryTests", "tests\ActiveDirectoryTests\ActiveDirectoryTests.csproj", "{CD1C03A0-B83C-43A9-89F5-9A7806DA07AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +27,10 @@ Global
 		{990C30E7-F5A2-4AD8-9F80-BD0D18E9AD4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{990C30E7-F5A2-4AD8-9F80-BD0D18E9AD4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{990C30E7-F5A2-4AD8-9F80-BD0D18E9AD4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD1C03A0-B83C-43A9-89F5-9A7806DA07AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD1C03A0-B83C-43A9-89F5-9A7806DA07AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD1C03A0-B83C-43A9-89F5-9A7806DA07AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD1C03A0-B83C-43A9-89F5-9A7806DA07AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
