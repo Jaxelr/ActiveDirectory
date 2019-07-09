@@ -48,3 +48,12 @@ The endpoint of root/healthcheck for each requests includes a json heartbeat to 
 ## OpenApi
 
 The OpenApi version used is Version 3.0.0. 
+
+
+## Libraries 
+
+The following libs are used on this repo:
+
+- [Carter](https://github.com/CarterCommunity/Carter)
+- [Xunit](https://github.com/xunit/xunit)
+- [HealthChecks](https://github.com/seven1986/HealthChecks)
