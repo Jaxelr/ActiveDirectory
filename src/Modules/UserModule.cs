@@ -17,7 +17,7 @@ namespace ActiveDirectory.Modules
             this.repository = repository;
             this.store = store;
 
-            Get<GetUserGroups>("/UserGroups/{username}", (req, res, routeData) =>
+            Get<GetUserGroups>("/UserGroup/{username}", (req, res, routeData) =>
             {
                 string username = routeData.As<string>("username");
 
