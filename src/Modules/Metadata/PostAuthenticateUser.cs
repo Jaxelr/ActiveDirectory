@@ -1,4 +1,6 @@
-﻿using Carter.OpenApi;
+﻿using System;
+using ActiveDirectory.Entities.Operations;
+using Carter.OpenApi;
 
 namespace ActiveDirectory.Modules
 {
@@ -7,7 +9,7 @@ namespace ActiveDirectory.Modules
         private const string TagInfo = "User";
         private const string DescriptionInfo = "Returns an authenticated user";
 
-        public override string Description { get; } = DescriptionInfo;
+        public override string Description => DescriptionInfo;
 
         public override RouteMetaDataResponse[] Responses { get; } =
         {
@@ -19,8 +21,10 @@ namespace ActiveDirectory.Modules
             },
         };
 
-        public override string Tag { get; } = TagInfo;
+        public override string Tag => TagInfo;
 
-        public override string OperationId { get; } = nameof(PostAuthenticateUser);
+        public override Type Request => typeof(AuthenticUserRequest);
+
+        public override string OperationId => nameof(PostAuthenticateUser);
     }
 }

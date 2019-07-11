@@ -8,7 +8,7 @@ namespace ActiveDirectory.Modules
         private const string TagInfo = "User";
         private const string DescriptionInfo = "Returns a boolean indicating if if belongs to one of the groups, plus an array of belonged groups";
 
-        public override string Description { get; } = DescriptionInfo;
+        public override string Description => DescriptionInfo;
 
         public override RouteMetaDataResponse[] Responses { get; } =
         {
@@ -20,8 +20,8 @@ namespace ActiveDirectory.Modules
             }
         };
 
-        public override string Tag { get; } = TagInfo;
+        public override string Tag => TagInfo;
 
-        public override string OperationId { get; } = nameof(GetIsUserInGroup);
+        public override string OperationId => nameof(GetIsUserInGroup);
     }
 }

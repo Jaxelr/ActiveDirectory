@@ -8,8 +8,6 @@ namespace ActiveDirectory.Modules
         private const string TagInfo = "Group User";
         private const string DescriptionInfo = "Returns a user by group";
 
-        public override string Description { get; } = DescriptionInfo;
-
         public override RouteMetaDataResponse[] Responses { get; } =
         {
             new RouteMetaDataResponse
@@ -25,7 +23,9 @@ namespace ActiveDirectory.Modules
             }
         };
 
-        public override string Tag { get; } = TagInfo;
+        public override string Description => DescriptionInfo;
+
+        public override string Tag => TagInfo;
 
         public override string OperationId => nameof(GetGroupUsers);
     }

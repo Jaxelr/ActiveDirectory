@@ -7,7 +7,7 @@ namespace ActiveDirectory.Modules
         private const string DescriptionInfo = "Returns a user";
         private const string TagInfo = "User";
 
-        public override string Description { get; } = DescriptionInfo;
+        public override string Description => DescriptionInfo;
 
         public override RouteMetaDataResponse[] Responses { get; } =
         {
@@ -24,8 +24,8 @@ namespace ActiveDirectory.Modules
             }
         };
 
-        public override string Tag { get; } = TagInfo;
+        public override string Tag => TagInfo;
 
-        public override string OperationId { get; } = nameof(GetUser);
+        public override string OperationId => nameof(GetUser);
     }
 }
