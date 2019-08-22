@@ -56,12 +56,14 @@ namespace ActiveDirectory
                     Password = password
                 };
 
-                var search = new DirectorySearcher(de);
-                var result = search.FindOne();
-
-                if (result is SearchResult)
+                using (var search = new DirectorySearcher(de))
                 {
-                    return (true, string.Empty);
+                    var result = search.FindOne();
+
+                    if (result is SearchResult)
+                    {
+                        return (true, string.Empty);
+                    }
                 }
             }
             catch (Exception x)
@@ -80,24 +82,24 @@ namespace ActiveDirectory
                 var response = new List<User>();
 
                 //Create a search by Group Name
-                var search = new DirectorySearcher(new DirectoryEntry(domain), $"(cn={group})");
-
-                //Get the users in the group
-                search.PropertiesToLoad.Add(member);
-
-                var result = search.FindOne();
-                if (result is SearchResult)
+                using (var search = new DirectorySearcher(new DirectoryEntry(domain), $"(cn={group})"))
                 {
-                    int usersCount = result.Properties[member].Count;
-
-                    for (int counter = 0; counter < usersCount; counter++)
+                    //Get the users in the group
+                    search.PropertiesToLoad.Add(member);
+                    var result = search.FindOne();
+                    if (result is SearchResult)
                     {
-                        var user = GetUser(result.Properties[member][counter].ToString());
+                        int usersCount = result.Properties[member].Count;
 
-                        if (user is User)
+                        for (int counter = 0; counter < usersCount; counter++)
                         {
-                            user.Group = group;
-                            response.Add(user);
+                            var user = GetUser(result.Properties[member][counter].ToString());
+
+                            if (user is User)
+                            {
+                                user.Group = group;
+                                response.Add(user);
+                            }
                         }
                     }
                 }
@@ -118,23 +120,24 @@ namespace ActiveDirectory
                 string strippedName = StripDomain(userName);
 
                 //Create a search by User Name
-                var search = new DirectorySearcher(new DirectoryEntry(domain), $"(samaccountname={strippedName})");
-
-                //Get the group membership for the user
-                search.PropertiesToLoad.Add(memberOf);
-
-                var result = search.FindOne();
-                if (result is SearchResult)
+                using (var search = new DirectorySearcher(new DirectoryEntry(domain), $"(samaccountname={strippedName})"))
                 {
-                    int groupsCount = result.Properties[memberOf].Count;
+                    //Get the group membership for the user
+                    search.PropertiesToLoad.Add(memberOf);
 
-                    for (int counter = 0; counter < groupsCount; counter++)
+                    var result = search.FindOne();
+                    if (result is SearchResult)
                     {
-                        string groupName = GetGroup((string) result.Properties[memberOf][counter]);
+                        int groupsCount = result.Properties[memberOf].Count;
 
-                        if (groupName is string)
+                        for (int counter = 0; counter < groupsCount; counter++)
                         {
-                            userGroups.Add(new UserGroup { GroupName = groupName });
+                            string groupName = GetGroup((string) result.Properties[memberOf][counter]);
+
+                            if (groupName is string)
+                            {
+                                userGroups.Add(new UserGroup { GroupName = groupName });
+                            }
                         }
                     }
                 }
@@ -154,19 +157,20 @@ namespace ActiveDirectory
                 var user = new User();
 
                 //Create a search by User Name
-                var search = new DirectorySearcher(new DirectoryEntry(domain), $"(samaccountname={strippedName})");
-
-                //Get the group membership for the user
-                search.PropertiesToLoad.Add("sAMAccountName");
-                search.PropertiesToLoad.Add("displayName");
-                search.PropertiesToLoad.Add("mail");
-
-                var result = search.FindOne();
-                if (result is SearchResult)
+                using (var search = new DirectorySearcher(new DirectoryEntry(domain), $"(samaccountname={strippedName})"))
                 {
-                    user.UserName = result.Properties["sAMAccountName"][0].ToString() ?? string.Empty;
-                    user.DisplayName = result.Properties["displayName"].Count > 0 ? result.Properties["displayName"][0].ToString() : string.Empty;
-                    user.Email = result.Properties["mail"].Count > 0 ? result.Properties["mail"][0].ToString() : string.Empty;
+                    //Get the group membership for the user
+                    search.PropertiesToLoad.Add("sAMAccountName");
+                    search.PropertiesToLoad.Add("displayName");
+                    search.PropertiesToLoad.Add("mail");
+
+                    var result = search.FindOne();
+                    if (result is SearchResult)
+                    {
+                        user.UserName = result.Properties["sAMAccountName"][0].ToString() ?? string.Empty;
+                        user.DisplayName = result.Properties["displayName"].Count > 0 ? result.Properties["displayName"][0].ToString() : string.Empty;
+                        user.Email = result.Properties["mail"].Count > 0 ? result.Properties["mail"][0].ToString() : string.Empty;
+                    }
                 }
 
                 return user;
@@ -214,14 +218,15 @@ namespace ActiveDirectory
             var user = new User();
 
             //Get the object by DN
-            var de = new DirectoryEntry(ToLDAP(domain));
-
-            //Ignore other objects
-            if (de.SchemaClassName == "user")
+            using (var de = new DirectoryEntry(ToLDAP(domain)))
             {
-                user.UserName = de.Properties["sAMAccountName"].Value?.ToString() ?? string.Empty;
-                user.DisplayName = de.Properties["displayName"].Value?.ToString() ?? string.Empty;
-                user.Email = de.Properties["mail"].Value?.ToString() ?? string.Empty;
+                //Ignore other objects
+                if (de.SchemaClassName == "user")
+                {
+                    user.UserName = de.Properties["sAMAccountName"].Value?.ToString() ?? string.Empty;
+                    user.DisplayName = de.Properties["displayName"].Value?.ToString() ?? string.Empty;
+                    user.Email = de.Properties["mail"].Value?.ToString() ?? string.Empty;
+                }
             }
 
             return user;
@@ -230,12 +235,13 @@ namespace ActiveDirectory
         private string GetGroup(string domain)
         {
             //Get the object by DN
-            var de = new DirectoryEntry(ToLDAP(domain));
-
-            //Ignore other objects
-            if (de?.SchemaClassName == "group")
+            using (var de = new DirectoryEntry(ToLDAP(domain)))
             {
-                return de.Properties["name"].Value?.ToString();
+                //Ignore other objects
+                if (de?.SchemaClassName == "group")
+                {
+                    return de.Properties["name"].Value?.ToString();
+                }
             }
 
             return string.Empty;
