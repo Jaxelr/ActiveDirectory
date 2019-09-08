@@ -1,4 +1,5 @@
-﻿using Carter;
+﻿using ActiveDirectory.Extensions;
+using Carter;
 using Carter.Request;
 
 namespace ActiveDirectory.Modules

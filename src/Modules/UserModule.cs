@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ActiveDirectory.Entities.Operations;
+using ActiveDirectory.Extensions;
 using Carter;
 using Carter.Request;
 
