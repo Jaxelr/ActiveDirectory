@@ -44,7 +44,6 @@ namespace ActiveDirectory
             Configuration.GetSection(nameof(AppSettings)).Bind(settings);
 
             services.AddSingleton(settings); //AppSettings type
-            services.AddSingleton(settings.Cache); //CacheConfig type
             services.AddSingleton<Store>();
 
             var _ = (settings.Domains.Empty()) ?
@@ -65,8 +64,8 @@ namespace ActiveDirectory
 
             app.UseSwaggerUI(opt =>
             {
-                opt.RoutePrefix = RouteDefinition.RoutePrefix;
-                opt.SwaggerEndpoint(RouteDefinition.SwaggerEndpoint, ServiceName);
+                opt.RoutePrefix = appSettings.RouteDefinition.RoutePrefix;
+                opt.SwaggerEndpoint(appSettings.RouteDefinition.SwaggerEndpoint, ServiceName);
             });
         }
 

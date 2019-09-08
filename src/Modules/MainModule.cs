@@ -6,11 +6,11 @@ namespace ActiveDirectory.Modules
 {
     public class MainModule : CarterModule
     {
-        public MainModule()
+        public MainModule(AppSettings appSettings)
         {
             Get("/", (req, res, routeData) =>
             {
-                res.Redirect(RouteDefinition.RoutePrefix);
+                res.Redirect(appSettings.RouteDefinition.RoutePrefix);
 
                 return Task.CompletedTask;
             });

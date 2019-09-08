@@ -1,4 +1,4 @@
-﻿namespace ActiveDirectory
+﻿namespace ActiveDirectory.Entities
 {
     public class CacheConfig
     {
