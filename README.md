@@ -16,6 +16,9 @@ Some configurations that are included on the appsettings are:
 
 1. Domains - Optional: if left empty, it will pick the current domain where the service is running. If multiple domains are defined on the Domains array, the endpoint will make requests to all of them. This was a very specific scenario that a client had. 
 1. Servers - Optional: if left empty the current host is selected. Urls defined here, will be used as endpoints on the open ui page for validation.
+1. Route Definition - Required: These values are attached to the openapi declaration and are needed for the defined metadata info
+   1. Route Prefix - The path where the ui will be shown.
+   1. Swagger Endpoint - The path where the openapi json metadata will be found.
 1. Cache Configurations - Required: Cache Enabled flag that will enable/disable the cache. If enabled, the following keys must be populated.
    1. Cache Max Size - the maximum size in bytes of each cached response
    1. Cache Timespan - the time in seconds that the value will be kept alive on the cache store
@@ -29,6 +32,10 @@ The current appsettings.json can be configured manually:
       "CacheTimespan": 60,
       "CacheMaxSize": 2048,
       "CacheEnabled": true
+    },
+    "RouteDefinition": {
+      "RoutePrefix": "openapi/ui",
+      "SwaggerEndpoint": "/openapi"
     },
     "Domains": [
       ""
