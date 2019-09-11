@@ -8,16 +8,8 @@ namespace ActiveDirectory.Modules
 {
     public class UserModule : CarterModule
     {
-#pragma warning disable IDE0052 // Remove unread private members
-        private readonly IAdRepository repository;
-        private readonly Store store;
-#pragma warning restore IDE0052 // Remove unread private members
-
         public UserModule(IAdRepository repository, Store store)
         {
-            this.repository = repository;
-            this.store = store;
-
             Get<GetUserGroups>("/UserGroup/{username}", (req, res, routeData) =>
             {
                 string username = routeData.As<string>("username");
