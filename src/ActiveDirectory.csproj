@@ -16,7 +16,7 @@
     <PackageReference Include="Carter" Version="4.2.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="SwashBuckle.AspNetCore.SwaggerUi" Version="4.0.1" />
     <PackageReference Include="System.DirectoryServices" Version="4.5.0" />
