@@ -10,9 +10,10 @@ namespace ActiveDirectory.Modules
     {
         public UserModule(IAdRepository repository, Store store)
         {
-            Get<GetUserGroups>("/UserGroup/{username}", (req, res, routeData) =>
+
+            Get<GetUserGroups>("/UserGroup/{username}", (req, res) =>
             {
-                string username = routeData.As<string>("username");
+                string username = req.RouteValues.As<string>("username");
 
                 return res.ExecHandler(username, store, () =>
                 {
@@ -20,9 +21,9 @@ namespace ActiveDirectory.Modules
                 });
             });
 
-            Get<GetUser>("/User/{username}", (req, res, routeData) =>
+            Get<GetUser>("/User/{username}", (req, res) =>
             {
-                string username = routeData.As<string>("username");
+                string username = req.RouteValues.As<string>("username");
 
                 return res.ExecHandler(username, store, () =>
                 {
@@ -30,10 +31,10 @@ namespace ActiveDirectory.Modules
                 });
             });
 
-            Get<GetIsUserInGroup>("/UserInGroup/{username}/{groups}", (req, res, routeData) =>
+            Get<GetIsUserInGroup>("/UserInGroup/{username}/{groups}", (req, res) =>
             {
-                string username = routeData.As<string>("username");
-                string[] groups = routeData.As<string>("groups").Split(',');
+                string username = req.RouteValues.As<string>("username");
+                string[] groups = req.RouteValues.As<string>("groups").Split(',');
 
                 string key = string.Concat(username, groups);
 
@@ -49,9 +50,9 @@ namespace ActiveDirectory.Modules
                 });
             });
 
-            Post<PostAuthenticateUser>("/AuthenticateUser/{username}", (req, res, routeData) =>
+            Post<PostAuthenticateUser>("/AuthenticateUser/{username}", (req, res) =>
             {
-                string username = routeData.As<string>("username");
+                string username = req.RouteValues.As<string>("username");
 
                 return res.ExecHandler<AuthenticUserRequest, AuthenticUserResponse>(req, (userRequest) =>
                 {

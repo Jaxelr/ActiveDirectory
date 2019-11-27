@@ -8,9 +8,9 @@ namespace ActiveDirectory.Modules
     {
         public GroupModule(IAdRepository repository, Store store)
         {
-            Get<GetGroupUsers>("/GroupUser/{group}", (req, res, routeData) =>
+            Get<GetGroupUsers>("/GroupUser/{group}", (req, res) =>
             {
-                string group = routeData.As<string>("group");
+                string group = req.RouteValues.As<string>("group");
 
                 return res.ExecHandler(group, store, () =>
                 {

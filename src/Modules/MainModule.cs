@@ -8,7 +8,7 @@ namespace ActiveDirectory.Modules
     {
         public MainModule(AppSettings appSettings)
         {
-            Get("/", (req, res, routeData) =>
+            Get("/", (req, res) =>
             {
                 res.Redirect(appSettings.RouteDefinition.RoutePrefix);
 

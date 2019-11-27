@@ -4,11 +4,10 @@ using ActiveDirectory.Entities;
 using ActiveDirectory.Extensions;
 using Carter;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting.Server.Features;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.HealthChecks;
-using Microsoft.Extensions.Hosting;
 
 namespace ActiveDirectory
 {
@@ -20,7 +19,7 @@ namespace ActiveDirectory
 
         private const string ServiceName = "Active Directory";
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
               .SetBasePath(env.ContentRootPath)
@@ -29,6 +28,10 @@ namespace ActiveDirectory
               .AddEnvironmentVariables();
 
             Configuration = builder.Build();
+
+            //Extract the AppSettings information from the appsettings config.
+            settings = new AppSettings();
+            Configuration.GetSection(nameof(AppSettings)).Bind(settings);
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -40,9 +43,6 @@ namespace ActiveDirectory
                     ValueTask<IHealthCheckResult>(HealthCheckResult.Healthy("Ok")));
             });
 
-            //Extract the AppSettings information from the appsettings config.
-            Configuration.GetSection(nameof(AppSettings)).Bind(settings);
-
             services.AddSingleton(settings); //AppSettings type
             services.AddSingleton<Store>();
 
@@ -50,26 +50,33 @@ namespace ActiveDirectory
                     services.AddSingleton<IAdRepository>(new AdRepository()) :
                     services.AddSingleton<IAdRepository>(new AdRepository(settings.Domains));
 
-            services.AddCarter();
+            services.AddCarter(options =>
+            {
+                options.OpenApi = GetOpenApiOptions(settings);
+            });
+
             services.AddMemoryCache();
         }
 
         public void Configure(IApplicationBuilder app, AppSettings appSettings)
         {
-            ICollection<string> addresses = appSettings.Addresses.Empty() ?
-                                            app.ServerFeatures.Get<IServerAddressesFeature>().Addresses :
-                                            appSettings.Addresses;
-
-            app.UseCarter(GetOptions(addresses));
+            app.UseRouting();
 
             app.UseSwaggerUI(opt =>
             {
                 opt.RoutePrefix = appSettings.RouteDefinition.RoutePrefix;
                 opt.SwaggerEndpoint(appSettings.RouteDefinition.SwaggerEndpoint, ServiceName);
             });
+
+            app.UseEndpoints(builder => builder.MapCarter());
         }
 
-        private CarterOptions GetOptions(ICollection<string> addresses) =>
-            new CarterOptions(openApiOptions: new OpenApiOptions(ServiceName, addresses, new Dictionary<string, OpenApiSecurity>()));
+        private OpenApiOptions GetOpenApiOptions(AppSettings settings) =>
+        new OpenApiOptions()
+        {
+            DocumentTitle = ServiceName,
+            ServerUrls = settings.Addresses,
+            Securities = new Dictionary<string, OpenApiSecurity>()
+        };
     }
 }

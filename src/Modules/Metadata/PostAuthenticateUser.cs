@@ -1,5 +1,4 @@
-﻿using System;
-using ActiveDirectory.Entities.Operations;
+﻿using ActiveDirectory.Entities.Operations;
 using Carter.OpenApi;
 
 namespace ActiveDirectory.Modules
@@ -23,7 +22,13 @@ namespace ActiveDirectory.Modules
 
         public override string Tag => TagInfo;
 
-        public override Type Request => typeof(AuthenticUserRequest);
+        public override RouteMetaDataRequest[] Requests { get; } =
+        {
+            new RouteMetaDataRequest
+            {
+                Request = typeof(AuthenticUserRequest)
+            },
+        };
 
         public override string OperationId => nameof(PostAuthenticateUser);
     }
