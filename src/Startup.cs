@@ -15,7 +15,7 @@ namespace ActiveDirectory
     {
         private IConfiguration Configuration { get; set; }
 
-        private readonly AppSettings settings = new AppSettings();
+        private readonly AppSettings settings;
 
         private const string ServiceName = "Active Directory";
 
