@@ -13,7 +13,6 @@ namespace ActiveDirectory
                 {
                     webBuilder
                     .UseContentRoot(Directory.GetCurrentDirectory())
-                    .UseHealthChecks("/healthcheck")
                     .UseStartup<Startup>()
                     .UseIISIntegration();
                 })
