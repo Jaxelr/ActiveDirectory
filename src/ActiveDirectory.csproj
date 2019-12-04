@@ -19,7 +19,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="3.0.1" />
     <PackageReference Include="SwashBuckle.AspNetCore.SwaggerUi" Version="5.0.0-rc4" />
-    <PackageReference Include="System.DirectoryServices" Version="4.6.0" />
+    <PackageReference Include="System.DirectoryServices" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
