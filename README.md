@@ -1,8 +1,8 @@
-# Active Directory Service 
+# Active Directory Service
 
 [![Build Status](https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_apis/build/status/Jaxelr.ActiveDirectory?branchName=master)](https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_build/latest?definitionId=1&branchName=master)
 
-This web service is an http wrapper over basic LDAP calls to the Microsoft Active Directory service, i mostly use it on clients for quick onsite domain discovery. 
+This web service is an http wrapper over basic LDAP calls to the Microsoft Active Directory service, i mostly use it on clients for quick onsite domain discovery.
 
 ## Known Challenges & Issues
 
@@ -14,7 +14,7 @@ Some requests to the LDAP can be incredibly costly and take a few seconds, to mi
 
 Some configurations that are included on the appsettings are:
 
-1. Domains - Optional: if left empty, it will pick the current domain where the service is running. If multiple domains are defined on the Domains array, the endpoint will make requests to all of them. This was a very specific scenario that a client had. 
+1. Domains - Optional: if left empty, it will pick the current domain where the service is running. If multiple domains are defined on the Domains array, the endpoint will make requests to all of them. This was a very specific scenario that a client had.
 1. Servers - Optional: if left empty the current host is selected. Urls defined here, will be used as endpoints on the open ui page for validation.
 1. Route Definition - Required: These values are attached to the openapi declaration and are needed for the defined metadata info
    1. Route Prefix - The path where the ui will be shown.
@@ -50,17 +50,16 @@ The current appsettings.json can be configured manually:
 
 ## HealthChecker
 
-The endpoint of root/healthcheck for each requests includes a json heartbeat to determine if the service is online. This was done using the library of [Microsoft.AspnetCore.HealthChecks](https://github.com/dotnet-architecture/HealthChecks) for more information check the github repo.
+The endpoint of root/healthcheck for each requests includes a json heartbeat to determine if the service is online. This was done using the library of [Microsoft.Extensions.Diagnostics.HealthChecks](https://github.com/aspnet/Extensions/tree/master/src/HealthChecks/HealthChecks) for more information check the github repo.
 
 ## OpenApi
 
-The OpenApi version used is Version 3.0.0. 
+The OpenApi version used is Version 3.0.0.
 
-
-## Libraries 
+## Libraries
 
 The following libs are used on this repo:
 
 - [Carter](https://github.com/CarterCommunity/Carter)
 - [Xunit](https://github.com/xunit/xunit)
-- [HealthChecks](https://github.com/seven1986/HealthChecks)
+- [Swashbuckle.Swaggerui](https://github.com/domaindrivendev/Swashbuckle)
