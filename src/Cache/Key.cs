@@ -2,9 +2,9 @@
 
 namespace ActiveDirectory
 {
-    public static class Key
+    internal static class Key
     {
-        public static string FieldSeparator = "::";
+        internal static string FieldSeparator = ":";
 
         /// <summary>
         /// Create a string key based on the typeof<T> and the field sent
@@ -12,7 +12,7 @@ namespace ActiveDirectory
         /// <typeparam name="T"></typeparam>
         /// <param name="field"></param>
         /// <returns></returns>
-        public static string Create<T>(string field) => Create(typeof(T), field);
+        internal static string Create<T>(string field) => Create(typeof(T), field);
 
         /// <summary>
         /// Create a string key based on the typeof<T> and the fields sent
@@ -20,7 +20,7 @@ namespace ActiveDirectory
         /// <typeparam name="T"></typeparam>
         /// <param name="fields"></param>
         /// <returns></returns>
-        public static string Create<T>(params string[] fields) => Create(typeof(T), fields);
+        internal static string Create<T>(params string[] fields) => Create(typeof(T), fields);
 
         /// <summary>
         /// Create a string key based on the type and the fields sent
@@ -28,7 +28,7 @@ namespace ActiveDirectory
         /// <param name="type"></param>
         /// <param name="fields"></param>
         /// <returns></returns>
-        public static string Create(Type type, params string[] fields)
+        internal static string Create(Type type, params string[] fields)
         {
             if (type == null)
             {
@@ -57,7 +57,7 @@ namespace ActiveDirectory
         /// <param name="type"></param>
         /// <param name="field"></param>
         /// <returns></returns>
-        public static string Create(Type type, string field)
+        internal static string Create(Type type, string field)
         {
             if (type == null)
             {

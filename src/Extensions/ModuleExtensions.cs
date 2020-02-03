@@ -68,6 +68,37 @@ namespace ActiveDirectory.Extensions
         }
 
         /// <summary>
+        /// Encapsulate execution of handler with the validation logic and storage on cache using the key provided
+        /// </summary>
+        /// <typeparam name="TOut"></typeparam>
+        /// <param name="res">An http response that will be populated</param>
+        /// <param name="key">A string key that will be used to identify the request</param>
+        /// <param name="store">A cache store provided by the client</param>
+        /// <param name="handler">A func handler that will be validated and executed</param>
+        /// <returns></returns>
+        public static async Task ExecHandler<TOut>(this HttpResponse res, string[] key, Store store, Func<TOut> handler)
+        {
+            try
+            {
+                var response = store.GetOrSetCache(key, () => handler());
+
+                if (response == null)
+                {
+                    res.StatusCode = 204;
+                    return;
+                }
+
+                res.StatusCode = 200;
+                await res.Negotiate(response).ConfigureAwait(false);
+            }
+            catch (Exception ex)
+            {
+                res.StatusCode = 500;
+                await res.Negotiate(ex.Message).ConfigureAwait(false);
+            }
+        }
+
+        /// <summary>
         /// Encapsulate execution of handler with the validation logic while binding and validating the http request
         /// </summary>
         /// <typeparam name="TIn"></typeparam>
