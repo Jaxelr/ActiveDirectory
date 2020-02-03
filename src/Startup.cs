@@ -46,10 +46,7 @@ namespace ActiveDirectory
                     services.AddSingleton<IAdRepository>(new AdRepository()) :
                     services.AddSingleton<IAdRepository>(new AdRepository(settings.Domains));
 
-            services.AddCarter(options =>
-            {
-                options.OpenApi = GetOpenApiOptions(settings);
-            });
+            services.AddCarter(options => options.OpenApi = GetOpenApiOptions(settings));
 
             //HealthChecks
             services.AddHealthChecks();

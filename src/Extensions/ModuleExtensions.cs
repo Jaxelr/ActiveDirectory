@@ -28,12 +28,11 @@ namespace ActiveDirectory.Extensions
                 }
 
                 res.StatusCode = 200;
-                await res.Negotiate(response);
             }
             catch (Exception ex)
             {
                 res.StatusCode = 500;
-                await res.Negotiate(ex.Message);
+                await res.Negotiate(ex.Message).ConfigureAwait(false);
             }
         }
 
@@ -59,12 +58,12 @@ namespace ActiveDirectory.Extensions
                 }
 
                 res.StatusCode = 200;
-                await res.Negotiate(response);
+                await res.Negotiate(response).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 res.StatusCode = 500;
-                await res.Negotiate(ex.Message);
+                await res.Negotiate(ex.Message).ConfigureAwait(false);
             }
         }
 
@@ -81,12 +80,12 @@ namespace ActiveDirectory.Extensions
         {
             try
             {
-                var (validationResult, data) = await req.BindAndValidate<TIn>();
+                var (validationResult, data) = await req.BindAndValidate<TIn>().ConfigureAwait(false);
 
                 if (!validationResult.IsValid)
                 {
                     res.StatusCode = 422;
-                    await res.Negotiate(validationResult.GetFormattedErrors());
+                    await res.Negotiate(validationResult.GetFormattedErrors()).ConfigureAwait(false);
                     return;
                 }
 
@@ -99,12 +98,12 @@ namespace ActiveDirectory.Extensions
                 }
 
                 res.StatusCode = 200;
-                await res.Negotiate(response);
+                await res.Negotiate(response).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 res.StatusCode = 500;
-                await res.Negotiate(ex.Message);
+                await res.Negotiate(ex.Message).ConfigureAwait(false);
             }
         }
 
@@ -124,12 +123,12 @@ namespace ActiveDirectory.Extensions
         {
             try
             {
-                var (validationResult, data) = await req.BindAndValidate<TIn>();
+                var (validationResult, data) = await req.BindAndValidate<TIn>().ConfigureAwait(false);
 
                 if (!validationResult.IsValid)
                 {
                     res.StatusCode = 422;
-                    await res.Negotiate(validationResult.GetFormattedErrors());
+                    await res.Negotiate(validationResult.GetFormattedErrors()).ConfigureAwait(false);
                     return;
                 }
 
@@ -142,12 +141,12 @@ namespace ActiveDirectory.Extensions
                 }
 
                 res.StatusCode = 200;
-                await res.Negotiate(response);
+                await res.Negotiate(response).ConfigureAwait(false);
             }
             catch (Exception ex)
             {
                 res.StatusCode = 500;
-                await res.Negotiate(ex.Message);
+                await res.Negotiate(ex.Message).ConfigureAwait(false);
             }
         }
     }

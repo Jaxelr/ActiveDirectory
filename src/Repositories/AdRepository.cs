@@ -56,14 +56,12 @@ namespace ActiveDirectory
                     Password = password
                 };
 
-                using (var search = new DirectorySearcher(de))
-                {
-                    var result = search.FindOne();
+                using var search = new DirectorySearcher(de);
+                var result = search.FindOne();
 
-                    if (result is SearchResult)
-                    {
-                        return (true, string.Empty);
-                    }
+                if (result is SearchResult)
+                {
+                    return (true, string.Empty);
                 }
             }
             catch (Exception x)
@@ -78,7 +76,7 @@ namespace ActiveDirectory
         {
             IEnumerable<User> GetGroupUsers(string domain)
             {
-                string member = @"member";
+                const string member = "member";
                 var response = new List<User>();
 
                 //Create a search by Group Name
@@ -114,7 +112,7 @@ namespace ActiveDirectory
         {
             IEnumerable<UserGroup> GetUserGroups(string domain)
             {
-                string memberOf = @"memberOf";
+                const string memberOf = "memberOf";
                 var userGroups = new List<UserGroup>();
                 //Strip the Domain Name from userName if included
                 string strippedName = StripDomain(userName);
@@ -188,7 +186,7 @@ namespace ActiveDirectory
                 .Intersect(GetUserGroups(userName)
                 .Select(x => x.GroupName));
 
-            bool result = userGroups.Count() > 0 ? true : false;
+            bool result = userGroups.Any();
 
             return (result, userGroups);
         }
@@ -250,7 +248,7 @@ namespace ActiveDirectory
         public IEnumerable<User> GetGroupUsers(IEnumerable<string> groups)
             => groups
             .AsParallel()
-            .Select(x => GetGroupUsers(x))
+            .Select(GetGroupUsers)
             .SelectMany(y => y);
     }
 }
