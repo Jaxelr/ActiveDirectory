@@ -12,10 +12,7 @@ namespace ActiveDirectory.Modules
             {
                 string group = req.RouteValues.As<string>("group");
 
-                return res.ExecHandler(group, store, () =>
-                {
-                    return repository.GetGroupUsers(group);
-                });
+                return res.ExecHandler(group, store, () => repository.GetGroupUsers(group));
             });
         }
     }

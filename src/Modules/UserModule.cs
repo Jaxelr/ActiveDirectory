@@ -10,25 +10,18 @@ namespace ActiveDirectory.Modules
     {
         public UserModule(IAdRepository repository, Store store)
         {
-
             Get<GetUserGroups>("/UserGroup/{username}", (req, res) =>
             {
                 string username = req.RouteValues.As<string>("username");
 
-                return res.ExecHandler(username, store, () =>
-                {
-                    return repository.GetUserGroups(username);
-                });
+                return res.ExecHandler(username, store, () => repository.GetUserGroups(username));
             });
 
             Get<GetUser>("/User/{username}", (req, res) =>
             {
                 string username = req.RouteValues.As<string>("username");
 
-                return res.ExecHandler(username, store, () =>
-                {
-                    return repository.GetUserInfo(username);
-                });
+                return res.ExecHandler(username, store, () => repository.GetUserInfo(username));
             });
 
             Get<GetIsUserInGroup>("/UserInGroup/{username}/{groups}", (req, res) =>
