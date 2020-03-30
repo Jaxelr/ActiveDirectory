@@ -6,7 +6,7 @@ This web service is an http wrapper over basic LDAP calls to the Microsoft Activ
 
 ## Known Challenges & Issues
 
-Some requests to the LDAP can be incredibly costly and take a few seconds, to mitigate this scenario an in-memory cache has been included to help with recurring requests.
+Some requests to the LDAP can be costly and take a few seconds, to mitigate this scenario an in-memory cache has been included to help with recurring requests.
 
 - Use https for prod usage, since the content of these operations is highly sensitive in nature.
 
