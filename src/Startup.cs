@@ -24,6 +24,8 @@ namespace ActiveDirectory
 
         private const string ServiceName = "Active Directory";
 
+        private string Policy => "DefaultPolicy";
+
         public Startup(IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -47,6 +49,19 @@ namespace ActiveDirectory
             var _ = (settings.Domains.Empty()) ?
                     services.AddSingleton<IAdRepository>(new AdRepository()) :
                     services.AddSingleton<IAdRepository>(new AdRepository(settings.Domains));
+
+            //Change Cors as needed.
+            services.AddCors(options =>
+            {
+                options.AddPolicy(Policy,
+                builder =>
+                {
+                    builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
 
             services.AddCarter(options => options.OpenApi = GetOpenApiOptions(settings));
 
