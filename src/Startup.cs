@@ -81,6 +81,8 @@ namespace ActiveDirectory
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppSettings appSettings)
         {
+            app.UseCors(Policy);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
