@@ -1,4 +1,5 @@
 ﻿using System;
+using ActiveDirectory.Extensions;
 
 namespace ActiveDirectory
 {
@@ -56,8 +57,8 @@ namespace ActiveDirectory
         /// </summary>
         /// <param name="type"></param>
         /// <param name="field"></param>
-        /// <returns></returns>
-        internal static string Create(Type type, string field)
+        /// <returns>A string with the type and field concatenated delimited by the field separator</returns>
+        public static string Create(Type type, string field)
         {
             if (type == null)
             {
@@ -67,6 +68,11 @@ namespace ActiveDirectory
             if (field == null)
             {
                 throw new ArgumentNullException($"Argument {nameof(field)} cannot be null");
+            }
+
+            if (type.IsIEnumerable() || type.IsArray)
+            {
+                return $"{type.Name}{FieldSeparator}{type.GetAnyElementType()}{FieldSeparator}{field}";
             }
 
             return $"{type.Name}{FieldSeparator}{field}";
