@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ActiveDirectory.Entities;
 using Carter.ModelBinding;
 using Carter.Response;
 using Microsoft.AspNetCore.Http;
@@ -14,7 +15,7 @@ namespace ActiveDirectory.Extensions
         /// <typeparam name="TOut"></typeparam>
         /// <param name="res">An http response that will be populated</param>
         /// <param name="handler">A func handler that will be validated and executed</param>
-        /// <returns></returns>
+        /// <returns name="Task">A Task object with the results</returns>
         public static async Task ExecHandler<TOut>(this HttpResponse res, Func<TOut> handler)
         {
             try
@@ -32,7 +33,7 @@ namespace ActiveDirectory.Extensions
             catch (Exception ex)
             {
                 res.StatusCode = 500;
-                await res.Negotiate(ex.Message).ConfigureAwait(false);
+                await res.Negotiate(new FailedResponse(ex)).ConfigureAwait(false);
             }
         }
 
@@ -44,7 +45,7 @@ namespace ActiveDirectory.Extensions
         /// <param name="key">A string key that will be used to identify the request</param>
         /// <param name="store">A cache store provided by the client</param>
         /// <param name="handler">A func handler that will be validated and executed</param>
-        /// <returns></returns>
+        /// <returns name="Task">A Task object with the results</returns>
         public static async Task ExecHandler<TOut>(this HttpResponse res, string key, Store store, Func<TOut> handler)
         {
             try
@@ -63,7 +64,7 @@ namespace ActiveDirectory.Extensions
             catch (Exception ex)
             {
                 res.StatusCode = 500;
-                await res.Negotiate(ex.Message).ConfigureAwait(false);
+                await res.Negotiate(new FailedResponse(ex)).ConfigureAwait(false);
             }
         }
 
@@ -75,7 +76,7 @@ namespace ActiveDirectory.Extensions
         /// <param name="key">A string key that will be used to identify the request</param>
         /// <param name="store">A cache store provided by the client</param>
         /// <param name="handler">A func handler that will be validated and executed</param>
-        /// <returns></returns>
+        /// <returns name="Task">A Task object with the results</returns>
         public static async Task ExecHandler<TOut>(this HttpResponse res, string[] key, Store store, Func<TOut> handler)
         {
             try
@@ -94,7 +95,7 @@ namespace ActiveDirectory.Extensions
             catch (Exception ex)
             {
                 res.StatusCode = 500;
-                await res.Negotiate(ex.Message).ConfigureAwait(false);
+                await res.Negotiate(new FailedResponse(ex)).ConfigureAwait(false);
             }
         }
 
@@ -106,7 +107,7 @@ namespace ActiveDirectory.Extensions
         /// <param name="res">An http response that will be populated</param>
         /// <param name="req">An http request that will be binded and validated</param>
         /// <param name="handler">A func handler that will be validated and executed</param>
-        /// <returns></returns>
+        /// <returns name="Task">A Task object with the results</returns>
         public static async Task ExecHandler<TIn, TOut>(this HttpResponse res, HttpRequest req, Func<TIn, TOut> handler)
         {
             try
@@ -134,7 +135,7 @@ namespace ActiveDirectory.Extensions
             catch (Exception ex)
             {
                 res.StatusCode = 500;
-                await res.Negotiate(ex.Message).ConfigureAwait(false);
+                await res.Negotiate(new FailedResponse(ex)).ConfigureAwait(false);
             }
         }
 
@@ -149,7 +150,7 @@ namespace ActiveDirectory.Extensions
         /// <param name="key">A string key that will be used to identify the request</param>
         /// <param name="store">A cache store provided by the client</param>
         /// <param name="handler">A func handler that will be validated and executed</param>
-        /// <returns></returns>
+        /// <returns name="Task">A Task object with the results</returns>
         public static async Task ExecHandler<TIn, TOut>(this HttpResponse res, HttpRequest req, string key, Store store, Func<TIn, TOut> handler)
         {
             try
@@ -177,7 +178,7 @@ namespace ActiveDirectory.Extensions
             catch (Exception ex)
             {
                 res.StatusCode = 500;
-                await res.Negotiate(ex.Message).ConfigureAwait(false);
+                await res.Negotiate(new FailedResponse(ex)).ConfigureAwait(false);
             }
         }
     }
