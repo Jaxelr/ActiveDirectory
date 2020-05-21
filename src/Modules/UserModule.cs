@@ -14,14 +14,18 @@ namespace ActiveDirectory.Modules
             {
                 string username = req.RouteValues.As<string>("username");
 
-                return res.ExecHandler(username, store, () => repository.GetUserGroups(username));
+                string key = Key.Create<GetUserGroups>(username);
+
+                return res.ExecHandler(key, store, () => repository.GetUserGroups(username));
             });
 
             Get<GetUser>("/User/{username}", (req, res) =>
             {
                 string username = req.RouteValues.As<string>("username");
 
-                return res.ExecHandler(username, store, () => repository.GetUserInfo(username));
+                string key = Key.Create<GetUser>(username);
+
+                return res.ExecHandler(key, store, () => repository.GetUserInfo(username));
             });
 
             Get<GetIsUserInGroup>("/UserInGroup/{username}/{groups}", (req, res) =>
@@ -29,7 +33,7 @@ namespace ActiveDirectory.Modules
                 string username = req.RouteValues.As<string>("username");
                 string[] groups = req.RouteValues.As<string>("groups").Split(',');
 
-                string key = string.Concat(username, groups);
+                string key = Key.Create<GetIsUserInGroup>(string.Concat(username, groups));
 
                 return res.ExecHandler(key, store, () =>
                 {

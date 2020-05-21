@@ -9,11 +9,7 @@ namespace ActiveDirectory
         private readonly IMemoryCache cache;
         private readonly CacheConfig props;
 
-        public Store(IMemoryCache cache, AppSettings appSettings)
-        {
-            this.cache = cache;
-            props = appSettings.Cache;
-        }
+        public Store(IMemoryCache cache, AppSettings appSettings) => (this.cache, props) = (cache, appSettings.Cache);
 
         /// <summary>
         /// Gets the cache value from store by key, if it misses, it sets the result as cached by the key provided
