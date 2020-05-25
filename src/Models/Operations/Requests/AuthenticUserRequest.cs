@@ -1,4 +1,4 @@
-﻿namespace ActiveDirectory.Entities.Operations
+﻿namespace ActiveDirectory.Models.Operations
 {
     public class AuthenticUserRequest
     {

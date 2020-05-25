@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ActiveDirectory.Entities.Operations
+namespace ActiveDirectory.Models.Operations
 {
     public class IsUserInGroupResponse
     {

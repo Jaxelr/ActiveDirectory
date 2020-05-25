@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using ActiveDirectory.Entities;
+using ActiveDirectory.Models.Internal;
 using Carter;
 
 namespace ActiveDirectory.Modules

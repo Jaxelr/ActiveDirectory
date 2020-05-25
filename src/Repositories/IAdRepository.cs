@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ActiveDirectory.Models.Entities;
 
 namespace ActiveDirectory
 {

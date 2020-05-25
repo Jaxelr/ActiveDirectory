@@ -1,5 +1,5 @@
 ﻿using System;
-using ActiveDirectory.Entities;
+using ActiveDirectory.Models.Internal;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace ActiveDirectory

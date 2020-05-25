@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
+using ActiveDirectory.Models.Entities;
 
 namespace ActiveDirectory
 {
@@ -205,7 +206,7 @@ namespace ActiveDirectory
             if (userName.Contains("\\"))
             {
                 int i = userName.IndexOf("\\");
-                userName = userName.Substring(i + 1, (userName.Length - i) - 1);
+                userName = userName.Substring(i + 1, userName.Length - i - 1);
             }
 
             return userName;

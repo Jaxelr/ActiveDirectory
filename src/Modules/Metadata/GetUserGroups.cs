@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ActiveDirectory.Models.Entities;
 using Carter.OpenApi;
 
 namespace ActiveDirectory.Modules

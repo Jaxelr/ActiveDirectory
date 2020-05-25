@@ -1,4 +1,5 @@
-﻿using Carter.OpenApi;
+﻿using ActiveDirectory.Models.Entities;
+using Carter.OpenApi;
 
 namespace ActiveDirectory.Modules
 {

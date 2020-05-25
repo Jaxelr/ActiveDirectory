@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ActiveDirectory.Entities
+namespace ActiveDirectory.Models.Internal
 {
     public class AppSettings
     {

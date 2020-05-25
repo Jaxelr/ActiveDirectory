@@ -1,4 +1,4 @@
-namespace ActiveDirectory
+namespace ActiveDirectory.Models.Entities
 {
     public class UserGroup
     {

@@ -1,4 +1,4 @@
-﻿using ActiveDirectory.Entities.Operations;
+﻿using ActiveDirectory.Models.Operations;
 using Carter.OpenApi;
 
 namespace ActiveDirectory.Modules

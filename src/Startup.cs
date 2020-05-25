@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ActiveDirectory.Entities;
 using ActiveDirectory.Extensions;
+using ActiveDirectory.Models.Internal;
 using Carter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;

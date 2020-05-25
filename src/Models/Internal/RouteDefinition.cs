@@ -1,4 +1,4 @@
-﻿namespace ActiveDirectory.Entities
+﻿namespace ActiveDirectory.Models.Internal
 {
     public class RouteDefinition
     {
