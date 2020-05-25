@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ActiveDirectory.Entities;
+using ActiveDirectory.Models.Internal;
 using Carter.ModelBinding;
 using Carter.Response;
 using Microsoft.AspNetCore.Http;
 
 namespace ActiveDirectory.Extensions
 {
-    public static class ModuleExtensions
+    public static class HttpResponseExtensions
     {
         /// <summary>
         /// Encapsulate execution of handler with the corresponding validation logic
