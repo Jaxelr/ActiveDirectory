@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using ActiveDirectory.Models.Entities;
+using ActiveDirectory.Models.Internal;
 using Carter.OpenApi;
 
 namespace ActiveDirectory.Modules
@@ -23,6 +24,12 @@ namespace ActiveDirectory.Modules
             {
                 Code = 204,
                 Description = $"An empty result pertaining to a not found {nameof(UserGroup)}"
+            },
+            new RouteMetaDataResponse
+            {
+                Code = 500,
+                Description = "A response if an internal server error is detected.",
+                Response = typeof(FailedResponse),
             }
     };
 

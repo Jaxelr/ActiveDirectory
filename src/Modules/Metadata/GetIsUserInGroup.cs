@@ -1,4 +1,5 @@
-﻿using ActiveDirectory.Models.Operations;
+﻿using ActiveDirectory.Models.Internal;
+using ActiveDirectory.Models.Operations;
 using Carter.OpenApi;
 
 namespace ActiveDirectory.Modules
@@ -17,6 +18,12 @@ namespace ActiveDirectory.Modules
                 Code = 200,
                 Description = $"An object of type {nameof(IsUserInGroupResponse)}",
                 Response = typeof(IsUserInGroupResponse)
+            },
+            new RouteMetaDataResponse
+            {
+                Code = 500,
+                Description = "A response if an internal server error is detected.",
+                Response = typeof(FailedResponse),
             }
         };
 

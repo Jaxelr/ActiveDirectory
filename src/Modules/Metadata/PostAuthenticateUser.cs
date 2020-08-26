@@ -1,6 +1,9 @@
-﻿using ActiveDirectory.Models.Entities;
+﻿using System.Collections.Generic;
+using ActiveDirectory.Models.Entities;
+using ActiveDirectory.Models.Internal;
 using ActiveDirectory.Models.Operations;
 using Carter.OpenApi;
+using FluentValidation.Results;
 
 namespace ActiveDirectory.Modules
 {
@@ -19,6 +22,18 @@ namespace ActiveDirectory.Modules
                 Description = $"An object of type {nameof(User)}",
                 Response = typeof(User)
             },
+            new RouteMetaDataResponse
+            {
+                Code = 422,
+                Description = "Validation errors from request",
+                Response = typeof(IEnumerable<ValidationFailure>),
+            },
+            new RouteMetaDataResponse
+            {
+                Code = 500,
+                Description = "A response if an internal server error is detected.",
+                Response = typeof(FailedResponse),
+            }
         };
 
         public override string Tag => TagInfo;
