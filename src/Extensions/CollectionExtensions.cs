@@ -12,6 +12,6 @@ namespace ActiveDirectory.Extensions
         /// <param name="collection"></param>
         /// <returns></returns>
         internal static bool Empty(this ICollection<string> collection) =>
-            collection.Count == 1 && string.IsNullOrEmpty(collection.FirstOrDefault());
+            collection.Count <= 1 && string.IsNullOrEmpty(collection.FirstOrDefault());
     }
 }
