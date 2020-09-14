@@ -29,6 +29,7 @@ namespace ActiveDirectory.Extensions
                 }
 
                 res.StatusCode = 200;
+                await res.Negotiate(response);
             }
             catch (Exception ex)
             {
