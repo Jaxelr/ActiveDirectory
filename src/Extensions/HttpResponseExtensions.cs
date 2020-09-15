@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ActiveDirectory.Models.Internal;
+using Carter.Cache;
 using Carter.ModelBinding;
 using Carter.Response;
 using Microsoft.AspNetCore.Http;
@@ -47,42 +48,13 @@ namespace ActiveDirectory.Extensions
         /// <param name="store">A cache store provided by the client</param>
         /// <param name="handler">A func handler that will be validated and executed</param>
         /// <returns name="Task">A Task object with the results</returns>
-        public static async Task ExecHandler<TOut>(this HttpResponse res, string key, Store store, Func<TOut> handler)
+        public static async Task ExecHandler<TOut>(this HttpResponse res, int cacheTimespan, Func<TOut> handler)
         {
             try
             {
-                var response = store.GetOrSetCache(key, () => handler());
+                res.HttpContext.AsCacheable(cacheTimespan);
 
-                if (response == null)
-                {
-                    res.StatusCode = 204;
-                    return;
-                }
-
-                res.StatusCode = 200;
-                await res.Negotiate(response);
-            }
-            catch (Exception ex)
-            {
-                res.StatusCode = 500;
-                await res.Negotiate(new FailedResponse(ex));
-            }
-        }
-
-        /// <summary>
-        /// Encapsulate execution of handler with the validation logic and storage on cache using the key provided
-        /// </summary>
-        /// <typeparam name="TOut"></typeparam>
-        /// <param name="res">An http response that will be populated</param>
-        /// <param name="key">A string key that will be used to identify the request</param>
-        /// <param name="store">A cache store provided by the client</param>
-        /// <param name="handler">A func handler that will be validated and executed</param>
-        /// <returns name="Task">A Task object with the results</returns>
-        public static async Task ExecHandler<TOut>(this HttpResponse res, string[] key, Store store, Func<TOut> handler)
-        {
-            try
-            {
-                var response = store.GetOrSetCache(key, () => handler());
+                var response = handler();
 
                 if (response == null)
                 {
@@ -152,7 +124,7 @@ namespace ActiveDirectory.Extensions
         /// <param name="store">A cache store provided by the client</param>
         /// <param name="handler">A func handler that will be validated and executed</param>
         /// <returns name="Task">A Task object with the results</returns>
-        public static async Task ExecHandler<TIn, TOut>(this HttpResponse res, HttpRequest req, string key, Store store, Func<TIn, TOut> handler)
+        public static async Task ExecHandler<TIn, TOut>(this HttpResponse res, HttpRequest req, int cacheTimespan, Func<TIn, TOut> handler)
         {
             try
             {
@@ -165,7 +137,9 @@ namespace ActiveDirectory.Extensions
                     return;
                 }
 
-                var response = store.GetOrSetCache(key, () => handler(data));
+                req.HttpContext.AsCacheable(cacheTimespan);
+
+                var response = handler(data);
 
                 if (response == null)
                 {

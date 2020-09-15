@@ -44,7 +44,6 @@ namespace ActiveDirectory
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(settings); //typeof(AppSettings)
-            services.AddSingleton<Store>();
 
             var _ = (settings.Domains.Empty()) ?
                     services.AddSingleton<IAdRepository>(new AdRepository()) :

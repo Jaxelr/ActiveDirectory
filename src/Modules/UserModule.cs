@@ -3,25 +3,26 @@ using ActiveDirectory.Models.Operations;
 using ActiveDirectory.Extensions;
 using Carter;
 using Carter.Request;
+using ActiveDirectory.Models.Internal;
 
 namespace ActiveDirectory.Modules
 {
     public class UserModule : CarterModule
     {
-        public UserModule(IAdRepository repository, Store store)
+        public UserModule(IAdRepository repository, AppSettings settings)
         {
             Get<GetUserGroups>("/UserGroup/{username}", (req, res) =>
             {
                 string username = req.RouteValues.As<string>("username");
 
-                return res.ExecHandler(username, store, () => repository.GetUserGroups(username));
+                return res.ExecHandler(settings.Cache.CacheTimespan, () => repository.GetUserGroups(username));
             });
 
             Get<GetUser>("/User/{username}", (req, res) =>
             {
                 string username = req.RouteValues.As<string>("username");
 
-                return res.ExecHandler(username, store, () => repository.GetUserInfo(username));
+                return res.ExecHandler(settings.Cache.CacheTimespan, () => repository.GetUserInfo(username));
             });
 
             Get<GetIsUserInGroup>("/UserInGroup/{username}/{groups}", (req, res) =>
@@ -31,7 +32,7 @@ namespace ActiveDirectory.Modules
 
                 string key = string.Concat(username, groups);
 
-                return res.ExecHandler(key, store, () =>
+                return res.ExecHandler(settings.Cache.CacheTimespan, () =>
                 {
                     (bool Belongs, IEnumerable<string> Groups) = repository.IsUserInGroups(username, groups);
 
