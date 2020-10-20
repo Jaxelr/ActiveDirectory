@@ -46,7 +46,7 @@ namespace ActiveDirectory
             services.AddSingleton(settings); //typeof(AppSettings)
 
             var _ = (settings.Domains.Empty()) ?
-                    services.AddSingleton<IAdRepository>(new AdRepository()) :
+                    services.AddSingleton<IAdRepository, AdRepository>() :
                     services.AddSingleton<IAdRepository>(new AdRepository(settings.Domains));
 
             //Change Cors as needed.

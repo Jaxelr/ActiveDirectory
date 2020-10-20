@@ -4,16 +4,28 @@ using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
 using ActiveDirectory.Models.Entities;
+using Microsoft.Extensions.Logging;
 
 namespace ActiveDirectory
 {
     public class AdRepository : IAdRepository
     {
+        private readonly ILogger<AdRepository> logger;
+
         public IEnumerable<string> Domains;
 
-        public AdRepository()
+        public AdRepository(ILogger<AdRepository> logger)
         {
-            Domains = new List<string> { ToLDAP(Domain.GetCurrentDomain().Name) };
+            this.logger = logger;
+
+            try
+            {
+                Domains = new List<string> { ToLDAP(Domain.GetCurrentDomain().Name) };
+            }
+            catch (Exception ex)
+            {
+                logger.LogCritical(ex, "A critical exception doesnt allow to load the correct dependencies");
+            }
         }
 
         public AdRepository(IEnumerable<string> domains)
@@ -67,6 +79,7 @@ namespace ActiveDirectory
             }
             catch (Exception x)
             {
+                logger.LogWarning(x, "Method: Authenticate user logged an exception");
                 return (false, x.Message);
             }
 
