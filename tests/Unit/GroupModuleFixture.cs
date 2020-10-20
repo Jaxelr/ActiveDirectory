@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ActiveDirectory;
-using ActiveDirectory.Modules;
 using ActiveDirectoryTests.Fakes;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -31,14 +29,7 @@ namespace ActiveDirectoryTests.Unit
                     .UseStartup<Startup>()
                     .ConfigureTestServices
                     (
-                        services =>
-                        {
-                            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IAdRepository));
-                            services.Remove(descriptor);
-
-                            services.AddSingleton<IAdRepository, MockAdRepository>();
-                        }
-
+                        services => services.AddSingleton<IAdRepository, MockAdRepository>()
                     ),
                     featureCollection);
 

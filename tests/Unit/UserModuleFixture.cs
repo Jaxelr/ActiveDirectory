@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -34,14 +33,7 @@ namespace ActiveDirectoryTests.Unit
                     .UseStartup<Startup>()
                     .ConfigureTestServices
                     (
-                        services =>
-                        {
-                            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IAdRepository));
-                            services.Remove(descriptor);
-
-                            services.AddSingleton<IAdRepository, MockAdRepository>();
-                        }
-
+                        services => services.AddSingleton<IAdRepository, MockAdRepository>()
                     ),
                     featureCollection);
 
