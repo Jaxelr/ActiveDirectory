@@ -1,11 +1,18 @@
 ﻿using System;
+using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using ActiveDirectory;
+using ActiveDirectory.Modules;
+using ActiveDirectoryTests.Fakes;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
+using Xunit;
 
 namespace ActiveDirectoryTests.Unit
 {
@@ -18,10 +25,22 @@ namespace ActiveDirectoryTests.Unit
         {
             var featureCollection = new FeatureCollection();
             featureCollection.Set<IServerAddressesFeature>(new ServerAddressesFeature());
+            featureCollection.Set<IAdRepository>(new MockAdRepository());
 
             server = new TestServer(WebHost.CreateDefaultBuilder()
-                    .UseStartup<Startup>(), featureCollection
-            );
+                    .UseStartup<Startup>()
+                    .ConfigureTestServices
+                    (
+                        services =>
+                        {
+                            var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IAdRepository));
+                            services.Remove(descriptor);
+
+                            services.AddSingleton<IAdRepository, MockAdRepository>();
+                        }
+
+                    ),
+                    featureCollection);
 
             client = server.CreateClient();
         }
@@ -30,6 +49,22 @@ namespace ActiveDirectoryTests.Unit
         {
             client?.Dispose();
             server?.Dispose();
+        }
+
+        [Fact]
+        public async Task Get_userGroup_request_async()
+        {
+            //Arrange
+            var group = new FakeUserGroup();
+
+            //Act
+            var res = await client.GetAsync($"GroupUser/{group.GroupName}");
+            string response = await res.Content.ReadAsStringAsync();
+
+            //Assert
+
+            Assert.Equal(HttpStatusCode.OK, res.StatusCode);
+            Assert.Contains(group.GroupName, response);
         }
     }
 }

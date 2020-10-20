@@ -7,7 +7,7 @@ namespace ActiveDirectoryTests.Unit
     public class ExtensionFixtures
     {
         [Fact]
-        public void Collection_Extension_Is_Empty_Unitialized()
+        public void Collection_extension_is_empty_unitialized()
         {
             //Arrange
             var myList = new List<string>();
@@ -20,7 +20,7 @@ namespace ActiveDirectoryTests.Unit
         }
 
         [Fact]
-        public void Collection_Extension_Is_Empty_Initialized_Empty_String()
+        public void Collection_extension_is_empty_initialized_empty_string()
         {
             //Arrange
             var myList = new List<string>() { "" };
@@ -33,7 +33,7 @@ namespace ActiveDirectoryTests.Unit
         }
 
         [Fact]
-        public void Collection_Extension_Is_Not_Empty()
+        public void Collection_extension_is_not_empty()
         {
             //Arrange
             var myList = new List<string>() { "Random Value" };
@@ -46,7 +46,7 @@ namespace ActiveDirectoryTests.Unit
         }
 
         [Fact]
-        public void Type_Extensions_Is_Enumerable_Collection()
+        public void Type_extensions_is_enumerable_collection()
         {
             //Arrange
             var myType = typeof(List<string>);
@@ -59,7 +59,7 @@ namespace ActiveDirectoryTests.Unit
         }
 
         [Fact]
-        public void Type_Extensions_Is_Enumerable_Primitive()
+        public void Type_extensions_is_enumerable_primitive()
         {
             //Arrange
             var myType = typeof(char);
@@ -72,7 +72,7 @@ namespace ActiveDirectoryTests.Unit
         }
 
         [Fact]
-        public void Get_Any_Element_Type_Collection()
+        public void Get_any_element_type_collection()
         {
             //Arrange
             var myType = typeof(List<char>);
@@ -85,7 +85,7 @@ namespace ActiveDirectoryTests.Unit
         }
 
         [Fact]
-        public void Get_Any_Element_Type_Array()
+        public void Get_any_element_type_array()
         {
             //Arrange
             var myType = typeof(int[]);
@@ -97,9 +97,8 @@ namespace ActiveDirectoryTests.Unit
             Assert.Equal(typeof(int), element);
         }
 
-
         [Fact]
-        public void Get_Any_Element_Type_Primitive()
+        public void Get_any_element_type_primitive()
         {
             //Arrange
             var myType = typeof(int);
