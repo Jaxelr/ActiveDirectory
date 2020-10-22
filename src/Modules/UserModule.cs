@@ -4,6 +4,8 @@ using ActiveDirectory.Extensions;
 using Carter;
 using Carter.Request;
 using ActiveDirectory.Models.Internal;
+using System.Linq;
+using ActiveDirectory.Models.Entities;
 
 namespace ActiveDirectory.Modules
 {
@@ -39,7 +41,7 @@ namespace ActiveDirectory.Modules
                     return new IsUserInGroupResponse()
                     {
                         Belongs = Belongs,
-                        Groups = Groups
+                        Groups = Groups.Select(x => new UserGroup() { GroupName = x })
                     };
                 });
             });
