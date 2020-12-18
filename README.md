@@ -1,8 +1,12 @@
 # Active Directory Service
 
-[![Build Status](https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_apis/build/status/Jaxelr.ActiveDirectory?branchName=master)](https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_build/latest?definitionId=1&branchName=master) ![.NET Core](https://github.com/Jaxelr/ActiveDirectory/workflows/.NET%20Core/badge.svg?branch=master)
-
 This web service is an http wrapper over basic LDAP calls to the Microsoft Active Directory service, i mostly use it on clients for quick onsite domain discovery.
+
+| Ci  | Status | Branch |
+| :---: | :---: | :---: |
+| Azure Pipelines | [![Build Status][azure-main-img]][azure-main] | master |
+| Github Actions | ![.NET Core][github-main] | master |
+
 
 ## Known Challenges & Issues
 
@@ -54,7 +58,7 @@ The current appsettings.json can be configured manually:
 }
 ```
 
-## HealthChecker
+## Health Check Feature
 
 The endpoint of root/healthcheck for each requests includes a json heartbeat to determine if the service is online. This was done using the library of [Microsoft.Extensions.Diagnostics.HealthChecks](https://github.com/dotnet/aspnetcore/tree/master/src/HealthChecks) for more information check the github repo.
 
@@ -69,3 +73,7 @@ This project depends on net 5.0. The following oss libraries are used on this re
 - [Carter](https://github.com/CarterCommunity/Carter)
 - [Xunit](https://github.com/xunit/xunit)
 - [Swashbuckle.Swaggerui](https://github.com/domaindrivendev/Swashbuckle)
+
+[github-main]: https://github.com/Jaxelr/ActiveDirectory/workflows/.NET%20Core/badge.svg?branch=master
+[azure-main-img]: https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_apis/build/status/Jaxelr.ActiveDirectory?branchName=master
+[azure-main]: https://dev.azure.com/jaxelr0433/dotnet-ci-validation/_build/latest?definitionId=2&branchName=main[azure-main]: 
