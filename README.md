@@ -5,7 +5,7 @@ This web service is an http wrapper over basic LDAP calls to the Microsoft Activ
 | Ci  | Status | Branch |
 | :---: | :---: | :---: |
 | Azure Pipelines | [![Build Status][azure-main-img]][azure-main] | master |
-| Github Actions | ![.NET Core][github-main] | master |
+| Github Actions | ![.NET][github-main] | master |
 
 
 ## Known Challenges & Issues
@@ -74,6 +74,6 @@ This project depends on net 5.0. The following oss libraries are used on this re
 - [Xunit](https://github.com/xunit/xunit)
 - [Swashbuckle.Swaggerui](https://github.com/domaindrivendev/Swashbuckle)
 
-[github-main]: https://github.com/Jaxelr/ActiveDirectory/workflows/.NET%20Core/badge.svg?branch=master
+[github-main]: https://github.com/Jaxelr/ActiveDirectory/workflows/.NET/badge.svg?branch=master
 [azure-main-img]: https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_apis/build/status/Jaxelr.ActiveDirectory?branchName=master
 [azure-main]: https://dev.azure.com/jaxelr0433/dotnet-ci-validation/_build/latest?definitionId=2&branchName=main[azure-main]: 
