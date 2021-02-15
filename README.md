@@ -19,13 +19,14 @@ Some requests to the LDAP can be costly and take a few seconds, to mitigate this
 Some configurations that are included on the appsettings are:
 
 1. Domains - Optional: if left empty, it will pick the current domain where the service is running. If multiple domains are defined on the Domains array, the endpoint will make requests to all of them. This was a very specific scenario that a client had.
-1. Servers - Optional: if left empty the current host is selected. Urls defined here, will be used as endpoints on the open ui page for validation.
+1. Addresses - Optional: if left empty the current host is selected. Urls defined here, will be used as endpoints on the open ui page for validation.
 1. Route Definition - Required: These values are attached to the openapi declaration and are needed for the defined metadata info
    1. Route Prefix - The path where the ui will be shown.
    1. Swagger Endpoint - The path where the openapi json metadata will be found.
 1. Cache Configurations - Required: Cache Enabled flag that will enable/disable the cache. If enabled, the following keys must be populated.
    1. Cache Max Size - the maximum size in bytes of each cached response
    1. Cache Timespan - the time in seconds that the value will be kept alive on the cache store
+   1. Cache Enabled - boolean to activate or deactivate cache on startup
 
 The current appsettings.json can be configured manually:
 
@@ -60,7 +61,7 @@ The current appsettings.json can be configured manually:
 
 ## Health Check Feature
 
-The endpoint of root/healthcheck for each requests includes a json heartbeat to determine if the service is online. This was done using the library of [Microsoft.Extensions.Diagnostics.HealthChecks](https://github.com/dotnet/aspnetcore/tree/master/src/HealthChecks) for more information check the github repo.
+The endpoint of root/healthcheck for each requests includes a json heartbeat to determine if the service is online. This was done using the library of [Microsoft.Extensions.Diagnostics.HealthChecks](https://github.com/dotnet/aspnetcore/tree/main/src/HealthChecks) for more information check the github repo.
 
 ## OpenApi
 
