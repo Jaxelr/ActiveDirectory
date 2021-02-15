@@ -10,7 +10,6 @@ updates:
       prefix: "deps"
     open-pull-requests-limit: 5
     labels:
-      - "nuget"
       - "dependencies"
   - package-ecosystem: "nuget"
     directory: "/tests" #ActiveDirectoryTests.csproj
@@ -21,5 +20,4 @@ updates:
       prefix: "deps"
     open-pull-requests-limit: 5
     labels:
-      - "nuget"
       - "dependencies"
