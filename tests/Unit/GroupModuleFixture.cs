@@ -40,6 +40,8 @@ namespace ActiveDirectoryTests.Unit
         {
             client?.Dispose();
             server?.Dispose();
+
+            GC.SuppressFinalize(this);
         }
 
         [Fact]
