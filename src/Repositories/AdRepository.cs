@@ -205,7 +205,7 @@ namespace ActiveDirectory
             return (result, userGroups);
         }
 
-        private string ToLDAP(string value)
+        private static string ToLDAP(string value)
         {
             if (value.Contains("LDAP://"))
                 return value;
@@ -213,7 +213,7 @@ namespace ActiveDirectory
             return $"LDAP://{value}";
         }
 
-        private string StripDomain(string userName)
+        private static string StripDomain(string userName)
         {
             //Strip the Domain Name from userName if included
             if (userName.Contains("\\"))
@@ -225,7 +225,7 @@ namespace ActiveDirectory
             return userName;
         }
 
-        private User GetUser(string domain)
+        private static User GetUser(string domain)
         {
             var user = new User();
 
@@ -244,7 +244,7 @@ namespace ActiveDirectory
             return user;
         }
 
-        private string GetGroup(string domain)
+        private static string GetGroup(string domain)
         {
             //Get the object by DN
             using (var de = new DirectoryEntry(ToLDAP(domain)))
