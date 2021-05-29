@@ -24,7 +24,7 @@ namespace ActiveDirectory
 
         private const string ServiceName = "Active Directory";
 
-        private string Policy => "DefaultPolicy";
+        private static string Policy => "DefaultPolicy";
 
         public Startup(IWebHostEnvironment env)
         {
@@ -108,8 +108,8 @@ namespace ActiveDirectory
             app.UseEndpoints(builder => builder.MapCarter());
         }
 
-        private OpenApiOptions GetOpenApiOptions(AppSettings settings) =>
-        new OpenApiOptions()
+        private static OpenApiOptions GetOpenApiOptions(AppSettings settings) =>
+        new()
         {
             DocumentTitle = ServiceName,
             ServerUrls = settings.Addresses,
