@@ -4,7 +4,7 @@ namespace ActiveDirectoryTests.Fakes
 {
     public class FakeUser : User
     {
-        public string Password => "password";
+        public static string Password => "password";
 
         internal const string DefaultDisplayName = "John Doe";
         internal const string DefaultEmail = "mail@mail.com";

@@ -23,7 +23,7 @@ namespace ActiveDirectoryTests.Unit
         public void Collection_extension_is_empty_initialized_empty_string()
         {
             //Arrange
-            var myList = new List<string>() { "" };
+            var myList = new List<string>() { string.Empty };
 
             //Act
             bool isEmpty = myList.Empty();

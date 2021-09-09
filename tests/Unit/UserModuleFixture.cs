@@ -101,7 +101,7 @@ namespace ActiveDirectoryTests.Unit
         {
             //Arrange
             var user = new FakeUser();
-            string request = JsonConvert.SerializeObject(new AuthenticUserRequest() { Password = user.Password });
+            string request = JsonConvert.SerializeObject(new AuthenticUserRequest() { Password = FakeUser.Password });
 
             //Act
             var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(request, Encoding.UTF8, "application/json"));
