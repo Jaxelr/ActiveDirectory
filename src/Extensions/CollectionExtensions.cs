@@ -10,7 +10,6 @@ namespace ActiveDirectory.Extensions
         /// config file, we must check if the only element included is not empty, then we can define it as empty.
         /// </summary>
         /// <param name="collection"></param>
-        /// <returns></returns>
         internal static bool Empty(this ICollection<string> collection) =>
             collection.Count <= 1 && string.IsNullOrEmpty(collection.FirstOrDefault());
     }

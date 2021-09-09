@@ -47,7 +47,7 @@ namespace ActiveDirectory
 
             var _ = (settings.Domains.Empty()) ?
                     services.AddSingleton<IAdRepository, AdRepository>() :
-                    services.AddSingleton<IAdRepository>(new AdRepository(settings.Domains));
+                    services.AddSingleton<IAdRepository>(_ => new AdRepository(settings.Domains));
 
             //Change Cors as needed.
             services.AddCors(options =>
@@ -78,7 +78,7 @@ namespace ActiveDirectory
             services.AddMemoryCache();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppSettings appSettings)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppSettings appSettings)
         {
             app.UseCors(Policy);
 
@@ -108,8 +108,7 @@ namespace ActiveDirectory
             app.UseEndpoints(builder => builder.MapCarter());
         }
 
-        private static OpenApiOptions GetOpenApiOptions(AppSettings settings) =>
-        new()
+        private static OpenApiOptions GetOpenApiOptions(AppSettings settings) => new()
         {
             DocumentTitle = ServiceName,
             ServerUrls = settings.Addresses,
@@ -120,7 +119,7 @@ namespace ActiveDirectory
         {
             context.Response.ContentType = "application/json";
 
-            var json = new JObject(
+            JObject json = new (
                         new JProperty("statusCode", report.Status),
                         new JProperty("status", report.Status.ToString()),
                         new JProperty("timelapsed", report.TotalDuration)
