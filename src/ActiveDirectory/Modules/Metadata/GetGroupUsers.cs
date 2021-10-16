@@ -1,23 +1,22 @@
-﻿using ActiveDirectory.Models.Entities;
-using ActiveDirectory.Models.Internal;
+﻿using System.Collections.Generic;
+using ActiveDirectory.Models.Entities;
+using ActiveDirectory.Models;
 using Carter.OpenApi;
 
 namespace ActiveDirectory.Modules
 {
-    public class GetUser : RouteMetaData
+    public class GetGroupUsers : RouteMetaData
     {
-        private const string DescriptionInfo = "Returns a user";
-        private const string TagInfo = "User";
-
-        public override string Description => DescriptionInfo;
+        private const string TagInfo = "Group User";
+        private const string DescriptionInfo = "Returns a user by group";
 
         public override RouteMetaDataResponse[] Responses { get; } =
         {
             new RouteMetaDataResponse
             {
                 Code = 200,
-                Description = $"An object of type {nameof(User)}",
-                Response = typeof(User)
+                Description = $"A list of {nameof(User)}s",
+                Response = typeof(IEnumerable<User>)
             },
             new RouteMetaDataResponse
             {
@@ -32,8 +31,10 @@ namespace ActiveDirectory.Modules
             }
         };
 
+        public override string Description => DescriptionInfo;
+
         public override string Tag => TagInfo;
 
-        public override string OperationId => nameof(GetUser);
+        public override string OperationId => nameof(GetGroupUsers);
     }
 }

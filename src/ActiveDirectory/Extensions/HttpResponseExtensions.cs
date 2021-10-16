@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ActiveDirectory.Models.Internal;
+using ActiveDirectory.Models.Entities;
 using Carter.Cache;
 using Carter.ModelBinding;
 using Carter.Response;
@@ -44,8 +44,6 @@ namespace ActiveDirectory.Extensions
         /// </summary>
         /// <typeparam name="TOut"></typeparam>
         /// <param name="res">An http response that will be populated</param>
-        /// <param name="key">A string key that will be used to identify the request</param>
-        /// <param name="store">A cache store provided by the client</param>
         /// <param name="handler">A func handler that will be validated and executed</param>
         /// <returns name="Task">A Task object with the results</returns>
         public static async Task ExecHandler<TOut>(this HttpResponse res, int cacheTimespan, Func<TOut> handler)
@@ -120,8 +118,6 @@ namespace ActiveDirectory.Extensions
         /// <typeparam name="TOut"></typeparam>
         /// <param name="res">An http response that will be populated</param>
         /// <param name="req">An http request that will be binded and validated</param>
-        /// <param name="key">A string key that will be used to identify the request</param>
-        /// <param name="store">A cache store provided by the client</param>
         /// <param name="handler">A func handler that will be validated and executed</param>
         /// <returns name="Task">A Task object with the results</returns>
         public static async Task ExecHandler<TIn, TOut>(this HttpResponse res, HttpRequest req, int cacheTimespan, Func<TIn, TOut> handler)

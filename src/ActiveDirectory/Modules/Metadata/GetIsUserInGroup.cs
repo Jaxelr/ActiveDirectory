@@ -1,4 +1,4 @@
-﻿using ActiveDirectory.Models.Internal;
+﻿using ActiveDirectory.Models.Entities;
 using ActiveDirectory.Models.Operations;
 using Carter.OpenApi;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ActiveDirectory.Models.Internal
+namespace ActiveDirectory.Models.Entities
 {
     public class FailedResponse
     {
