@@ -2,7 +2,17 @@
 version: 2
 updates:
   - package-ecosystem: "nuget"
-    directory: "/src" #ActiveDirectory.csproj
+    directory: "/src/ActiveDirectory" #ActiveDirectory.csproj
+    schedule:
+      interval: "weekly"
+      day: "thursday"
+    commit-message:
+      prefix: "deps"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+  - package-ecosystem: "nuget"
+    directory: "/src/ActiveDirectory.Models" #ActiveDirectory.Models.csproj
     schedule:
       interval: "weekly"
       day: "thursday"
