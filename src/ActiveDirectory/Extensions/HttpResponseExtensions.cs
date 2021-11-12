@@ -23,7 +23,7 @@ namespace ActiveDirectory.Extensions
             {
                 var response = handler();
 
-                if (response == null)
+                if (response is null)
                 {
                     res.StatusCode = 204;
                     return;
@@ -54,7 +54,7 @@ namespace ActiveDirectory.Extensions
 
                 var response = handler();
 
-                if (response == null)
+                if (response is null)
                 {
                     res.StatusCode = 204;
                     return;
@@ -94,7 +94,7 @@ namespace ActiveDirectory.Extensions
 
                 var response = handler(data);
 
-                if (response == null)
+                if (response is null)
                 {
                     res.StatusCode = 204;
                     return;
@@ -137,7 +137,7 @@ namespace ActiveDirectory.Extensions
 
                 var response = handler(data);
 
-                if (response == null)
+                if (response is null)
                 {
                     res.StatusCode = 204;
                     return;

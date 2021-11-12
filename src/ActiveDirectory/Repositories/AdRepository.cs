@@ -72,7 +72,7 @@ namespace ActiveDirectory
                 using var search = new DirectorySearcher(de);
                 var result = search.FindOne();
 
-                if (result is SearchResult)
+                if (result is not null)
                 {
                     return (true, string.Empty);
                 }
@@ -99,7 +99,7 @@ namespace ActiveDirectory
                     //Get the users in the group
                     search.PropertiesToLoad.Add(member);
                     var result = search.FindOne();
-                    if (result is SearchResult)
+                    if (result is not null)
                     {
                         int usersCount = result.Properties[member].Count;
 
@@ -107,7 +107,7 @@ namespace ActiveDirectory
                         {
                             var user = GetUser(result.Properties[member][counter].ToString());
 
-                            if (user is User)
+                            if (user is not null)
                             {
                                 user.Group = group;
                                 response.Add(user);
@@ -138,7 +138,7 @@ namespace ActiveDirectory
                     search.PropertiesToLoad.Add(memberOf);
 
                     var result = search.FindOne();
-                    if (result is SearchResult)
+                    if (result is not null)
                     {
                         int groupsCount = result.Properties[memberOf].Count;
 
@@ -146,7 +146,7 @@ namespace ActiveDirectory
                         {
                             string groupName = GetGroup((string) result.Properties[memberOf][counter]);
 
-                            if (groupName is string)
+                            if (groupName is not null)
                             {
                                 userGroups.Add(new UserGroup { GroupName = groupName });
                             }
@@ -177,7 +177,7 @@ namespace ActiveDirectory
                     search.PropertiesToLoad.Add("mail");
 
                     var result = search.FindOne();
-                    if (result is SearchResult)
+                    if (result is not null)
                     {
                         user.UserName = result.Properties["sAMAccountName"][0].ToString() ?? string.Empty;
                         user.DisplayName = result.Properties["displayName"].Count > 0 ? result.Properties["displayName"][0].ToString() : string.Empty;
@@ -216,9 +216,9 @@ namespace ActiveDirectory
         private static string StripDomain(string userName)
         {
             //Strip the Domain Name from userName if included
-            if (userName.Contains("\\"))
+            if (userName.Contains('\\'))
             {
-                int i = userName.IndexOf("\\");
+                int i = userName.IndexOf('\\');
                 userName = userName.Substring(i + 1, userName.Length - i - 1);
             }
 
