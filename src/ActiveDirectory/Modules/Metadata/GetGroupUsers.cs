@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using ActiveDirectory.Models.Entities;
-using ActiveDirectory.Models;
 using Carter.OpenApi;
 
 namespace ActiveDirectory.Modules
