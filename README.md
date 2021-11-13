@@ -77,4 +77,4 @@ This project depends on net 5.0. The following oss libraries are used on this re
 
 [github-main]: https://github.com/Jaxelr/ActiveDirectory/workflows/.NET/badge.svg?branch=master
 [azure-main-img]: https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_apis/build/status/Jaxelr.ActiveDirectory?branchName=master
-[azure-main]: https://dev.azure.com/jaxelr0433/dotnet-ci-validation/_build/latest?definitionId=2&branchName=main[azure-main]: 
+[azure-main]: https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_build/latest?definitionId=2&branchName=master 
