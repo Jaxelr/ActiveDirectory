@@ -6,7 +6,7 @@ using System.Linq;
 using ActiveDirectory.Models.Entities;
 using Microsoft.Extensions.Logging;
 
-namespace ActiveDirectory
+namespace ActiveDirectory.Repositories
 {
     public class AdRepository : IAdRepository
     {
@@ -14,23 +14,21 @@ namespace ActiveDirectory
 
         public IEnumerable<string> Domains;
 
-        public AdRepository(ILogger<AdRepository> logger)
+        public AdRepository(ILogger<AdRepository> logger) : this(logger, new string[] { Domain.GetCurrentDomain().Name })
+        {
+        }
+
+        public AdRepository(ILogger<AdRepository> logger, IEnumerable<string> domains)
         {
             this.logger = logger;
-
             try
             {
-                Domains = new List<string> { ToLDAP(Domain.GetCurrentDomain().Name) };
+                Domains = domains.Select(x => ToLDAP(x));
             }
             catch (Exception ex)
             {
                 logger.LogCritical(ex, "A critical exception doesnt allow to load the correct dependencies");
             }
-        }
-
-        public AdRepository(IEnumerable<string> domains)
-        {
-            Domains = domains.Select(x => ToLDAP(x));
         }
 
         public (bool, string) AuthenticateUser(string userName, string password)

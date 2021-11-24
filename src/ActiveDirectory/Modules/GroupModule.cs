@@ -1,5 +1,6 @@
 ﻿using ActiveDirectory.Extensions;
 using ActiveDirectory.Models.Internal;
+using ActiveDirectory.Repositories;
 using Carter;
 using Carter.Request;
 

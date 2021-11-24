@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ActiveDirectory.Models.Entities;
 
-namespace ActiveDirectory
+namespace ActiveDirectory.Repositories
 {
     public interface IAdRepository
     {

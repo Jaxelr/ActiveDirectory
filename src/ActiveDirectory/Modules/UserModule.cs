@@ -6,6 +6,7 @@ using Carter.Request;
 using ActiveDirectory.Models.Internal;
 using System.Linq;
 using ActiveDirectory.Models.Entities;
+using ActiveDirectory.Repositories;
 
 namespace ActiveDirectory.Modules
 {
