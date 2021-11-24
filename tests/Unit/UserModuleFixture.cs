@@ -3,14 +3,10 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using ActiveDirectory;
 using ActiveDirectory.Models.Operations;
+using ActiveDirectory.Repositories;
 using ActiveDirectoryTests.Fakes;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Server.Features;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.TestHost;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Xunit;
@@ -21,29 +17,16 @@ namespace ActiveDirectoryTests.Unit
     {
         private readonly HttpClient client;
 
-        private readonly TestServer server;
-
         public UserModuleFixture()
         {
-            var featureCollection = new FeatureCollection();
-            featureCollection.Set<IServerAddressesFeature>(new ServerAddressesFeature());
-            featureCollection.Set<IAdRepository>(new MockAdRepository());
-
-            server = new TestServer(WebHost.CreateDefaultBuilder()
-                    .UseStartup<Startup>()
-                    .ConfigureTestServices
-                    (
-                        services => services.AddSingleton<IAdRepository, MockAdRepository>()
-                    ),
-                    featureCollection);
-
+            var server = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder => builder.ConfigureServices(services => services.AddSingleton<IAdRepository, MockAdRepository>()));
             client = server.CreateClient();
         }
 
         public void Dispose()
         {
             client?.Dispose();
-            server?.Dispose();
 
             GC.SuppressFinalize(this);
         }

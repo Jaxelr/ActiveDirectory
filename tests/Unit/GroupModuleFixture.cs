@@ -2,13 +2,9 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using ActiveDirectory;
+using ActiveDirectory.Repositories;
 using ActiveDirectoryTests.Fakes;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Server.Features;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.TestHost;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -17,30 +13,17 @@ namespace ActiveDirectoryTests.Unit
     public class GroupModuleFixture : IDisposable
     {
         private readonly HttpClient client;
-        private readonly TestServer server;
 
         public GroupModuleFixture()
         {
-            var featureCollection = new FeatureCollection();
-            featureCollection.Set<IServerAddressesFeature>(new ServerAddressesFeature());
-            featureCollection.Set<IAdRepository>(new MockAdRepository());
-
-            server = new TestServer(WebHost.CreateDefaultBuilder()
-                    .UseStartup<Startup>()
-                    .ConfigureTestServices
-                    (
-                        services => services.AddSingleton<IAdRepository, MockAdRepository>()
-                    ),
-                    featureCollection);
-
+            var server = new WebApplicationFactory<Program>()
+            .WithWebHostBuilder(builder => builder.ConfigureServices(services => services.AddSingleton<IAdRepository, MockAdRepository>()));
             client = server.CreateClient();
         }
 
         public void Dispose()
         {
             client?.Dispose();
-            server?.Dispose();
-
             GC.SuppressFinalize(this);
         }
 
