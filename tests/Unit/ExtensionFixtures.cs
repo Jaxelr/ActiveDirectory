@@ -2,112 +2,111 @@
 using ActiveDirectory.Extensions;
 using Xunit;
 
-namespace ActiveDirectoryTests.Unit
+namespace ActiveDirectoryTests.Unit;
+
+public class ExtensionFixtures
 {
-    public class ExtensionFixtures
+    [Fact]
+    public void Collection_extension_is_empty_unitialized()
     {
-        [Fact]
-        public void Collection_extension_is_empty_unitialized()
-        {
-            //Arrange
-            var myList = new List<string>();
+        //Arrange
+        var myList = new List<string>();
 
-            //Act
-            bool isEmpty = myList.Empty();
+        //Act
+        bool isEmpty = myList.Empty();
 
-            //Assert
-            Assert.True(isEmpty);
-        }
+        //Assert
+        Assert.True(isEmpty);
+    }
 
-        [Fact]
-        public void Collection_extension_is_empty_initialized_empty_string()
-        {
-            //Arrange
-            var myList = new List<string>() { string.Empty };
+    [Fact]
+    public void Collection_extension_is_empty_initialized_empty_string()
+    {
+        //Arrange
+        var myList = new List<string>() { string.Empty };
 
-            //Act
-            bool isEmpty = myList.Empty();
+        //Act
+        bool isEmpty = myList.Empty();
 
-            //Assert
-            Assert.True(isEmpty);
-        }
+        //Assert
+        Assert.True(isEmpty);
+    }
 
-        [Fact]
-        public void Collection_extension_is_not_empty()
-        {
-            //Arrange
-            var myList = new List<string>() { "Random Value" };
+    [Fact]
+    public void Collection_extension_is_not_empty()
+    {
+        //Arrange
+        var myList = new List<string>() { "Random Value" };
 
-            //Act
-            bool isEmpty = myList.Empty();
+        //Act
+        bool isEmpty = myList.Empty();
 
-            //Assert
-            Assert.False(isEmpty);
-        }
+        //Assert
+        Assert.False(isEmpty);
+    }
 
-        [Fact]
-        public void Type_extensions_is_enumerable_collection()
-        {
-            //Arrange
-            var myType = typeof(List<string>);
+    [Fact]
+    public void Type_extensions_is_enumerable_collection()
+    {
+        //Arrange
+        var myType = typeof(List<string>);
 
-            //Act
-            bool isIEnumerable = myType.IsIEnumerable();
+        //Act
+        bool isIEnumerable = myType.IsIEnumerable();
 
-            //Assert
-            Assert.True(isIEnumerable);
-        }
+        //Assert
+        Assert.True(isIEnumerable);
+    }
 
-        [Fact]
-        public void Type_extensions_is_enumerable_primitive()
-        {
-            //Arrange
-            var myType = typeof(char);
+    [Fact]
+    public void Type_extensions_is_enumerable_primitive()
+    {
+        //Arrange
+        var myType = typeof(char);
 
-            //Act
-            bool isIEnumerable = myType.IsIEnumerable();
+        //Act
+        bool isIEnumerable = myType.IsIEnumerable();
 
-            //Assert
-            Assert.False(isIEnumerable);
-        }
+        //Assert
+        Assert.False(isIEnumerable);
+    }
 
-        [Fact]
-        public void Get_any_element_type_collection()
-        {
-            //Arrange
-            var myType = typeof(List<char>);
+    [Fact]
+    public void Get_any_element_type_collection()
+    {
+        //Arrange
+        var myType = typeof(List<char>);
 
-            //Act
-            var element = myType.GetAnyElementType();
+        //Act
+        var element = myType.GetAnyElementType();
 
-            //Assert
-            Assert.Equal(typeof(char), element);
-        }
+        //Assert
+        Assert.Equal(typeof(char), element);
+    }
 
-        [Fact]
-        public void Get_any_element_type_array()
-        {
-            //Arrange
-            var myType = typeof(int[]);
+    [Fact]
+    public void Get_any_element_type_array()
+    {
+        //Arrange
+        var myType = typeof(int[]);
 
-            //Act
-            var element = myType.GetAnyElementType();
+        //Act
+        var element = myType.GetAnyElementType();
 
-            //Assert
-            Assert.Equal(typeof(int), element);
-        }
+        //Assert
+        Assert.Equal(typeof(int), element);
+    }
 
-        [Fact]
-        public void Get_any_element_type_primitive()
-        {
-            //Arrange
-            var myType = typeof(int);
+    [Fact]
+    public void Get_any_element_type_primitive()
+    {
+        //Arrange
+        var myType = typeof(int);
 
-            //Act
-            var element = myType.GetAnyElementType();
+        //Act
+        var element = myType.GetAnyElementType();
 
-            //Assert
-            Assert.Equal(typeof(int), element);
-        }
+        //Assert
+        Assert.Equal(typeof(int), element);
     }
 }
