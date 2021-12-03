@@ -1,18 +1,18 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Carter;
+using ActiveDirectory.Extensions;
 using ActiveDirectory.Models.Internal;
 using ActiveDirectory.Repositories;
+using Carter;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
-using ActiveDirectory.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Linq;
 
 const string ServiceName = "Active Directory";
 const string Policy = "DefaultPolicy";
@@ -43,7 +43,7 @@ builder.Services.AddLogging(opt =>
     opt.AddConfiguration(builder.Configuration.GetSection("Logging"));
 });
 
-builder.Services.AddCarter(options => options.OpenApi = GetOpenApiOptions(settings));
+builder.Services.AddCarter();
 
 builder.Services.AddSingleton(settings); //typeof(AppSettings)
 var _ = (settings.Domains.Empty()) ?
@@ -52,6 +52,29 @@ var _ = (settings.Domains.Empty()) ?
 
 //HealthChecks
 builder.Services.AddHealthChecks();
+
+//Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Description = ServiceName,
+        Version = "v1"
+    });
+
+    //options.DocInclusionPredicate((s, description) =>
+    //{
+    //    foreach (var metaData in description.ActionDescriptor.EndpointMetadata)
+    //    {
+    //        if (metaData is IIncludeOpenApi)
+    //        {
+    //            return true;
+    //        }
+    //    }
+    //    return false;
+    //});
+});
 
 var app = builder.Build();
 
@@ -65,11 +88,8 @@ if (builder.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseSwaggerUI(opt =>
-{
-    opt.RoutePrefix = settings.RouteDefinition.RoutePrefix;
-    opt.SwaggerEndpoint(settings.RouteDefinition.SwaggerEndpoint, ServiceName);
-});
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHealthChecks("/healthcheck", new HealthCheckOptions()
 {
@@ -79,14 +99,6 @@ app.UseHealthChecks("/healthcheck", new HealthCheckOptions()
 app.UseEndpoints(builder => builder.MapCarter());
 
 app.Run();
-
-static OpenApiOptions GetOpenApiOptions(AppSettings settings) =>
-        new()
-        {
-            DocumentTitle = ServiceName,
-            ServerUrls = settings.Addresses,
-            Securities = new Dictionary<string, OpenApiSecurity>()
-        };
 
 static Task WriteResponse(HttpContext context, HealthReport report)
 {
