@@ -1,18 +1,18 @@
 ﻿using System.Threading.Tasks;
 using ActiveDirectory.Models.Internal;
 using Carter;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 
 namespace ActiveDirectory.Modules;
 
-public class MainModule : CarterModule
+public class MainModule : ICarterModule
 {
-    public MainModule(AppSettings appSettings)
-    {
-        Get("/", (ctx) =>
+    public void AddRoutes(IEndpointRouteBuilder app) =>
+        app.MapGet("/", (AppSettings settings, HttpContext ctx) =>
         {
-            ctx.Response.Redirect(appSettings.RouteDefinition.RoutePrefix);
-
+            ctx.Response.Redirect(settings.RouteDefinition.SwaggerUiEndpoint);
             return Task.CompletedTask;
         });
-    }
 }
