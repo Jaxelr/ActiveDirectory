@@ -1,13 +1,12 @@
 ﻿using ActiveDirectory.Models.Operations;
 using FluentValidation;
 
-namespace ActiveDirectory.Validation
+namespace ActiveDirectory.Validation;
+
+public class AuthenticUserValidator : AbstractValidator<AuthenticUserRequest>
 {
-    public class AuthenticUserValidator : AbstractValidator<AuthenticUserRequest>
+    public AuthenticUserValidator()
     {
-        public AuthenticUserValidator()
-        {
-            RuleFor(x => x.Password).NotEmpty();
-        }
+        RuleFor(x => x.Password).NotEmpty();
     }
 }

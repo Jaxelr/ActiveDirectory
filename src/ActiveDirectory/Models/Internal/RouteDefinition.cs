@@ -1,8 +1,7 @@
-﻿namespace ActiveDirectory.Models.Internal
+﻿namespace ActiveDirectory.Models.Internal;
+
+public class RouteDefinition
 {
-    public class RouteDefinition
-    {
-        public string RoutePrefix { get; set; }
-        public string SwaggerEndpoint { get; set; }
-    }
+    public string RoutePrefix { get; set; }
+    public string SwaggerEndpoint { get; set; }
 }
