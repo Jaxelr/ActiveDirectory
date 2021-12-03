@@ -1,7 +1,6 @@
-﻿namespace ActiveDirectory.Models.Operations
+﻿namespace ActiveDirectory.Models.Operations;
+
+public class AuthenticUserRequest
 {
-    public class AuthenticUserRequest
-    {
-        public string Password { get; set; }
-    }
+    public string Password { get; set; }
 }

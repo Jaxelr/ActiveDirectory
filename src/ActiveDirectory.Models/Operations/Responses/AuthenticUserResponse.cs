@@ -1,8 +1,7 @@
-﻿namespace ActiveDirectory.Models.Operations
+﻿namespace ActiveDirectory.Models.Operations;
+
+public class AuthenticUserResponse
 {
-    public class AuthenticUserResponse
-    {
-        public bool IsValid { get; set; }
-        public string Message { get; set; }
-    }
+    public bool IsValid { get; set; }
+    public string Message { get; set; }
 }

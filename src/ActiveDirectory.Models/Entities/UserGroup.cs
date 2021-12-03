@@ -1,7 +1,6 @@
-namespace ActiveDirectory.Models.Entities
+namespace ActiveDirectory.Models.Entities;
+
+public class UserGroup
 {
-    public class UserGroup
-    {
-        public string GroupName { get; set; }
-    }
+    public string GroupName { get; set; }
 }
