@@ -3,6 +3,7 @@ using ActiveDirectory.Extensions;
 using ActiveDirectory.Models.Internal;
 using ActiveDirectory.Repositories;
 using Carter;
+using Carter.OpenApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Http;
@@ -57,23 +58,23 @@ builder.Services.AddHealthChecks();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
+    options.SwaggerDoc(settings.RouteDefinition.Version, new OpenApiInfo
     {
         Description = ServiceName,
-        Version = "v1"
+        Version = settings.RouteDefinition.Version,
     });
 
-    //options.DocInclusionPredicate((s, description) =>
-    //{
-    //    foreach (var metaData in description.ActionDescriptor.EndpointMetadata)
-    //    {
-    //        if (metaData is IIncludeOpenApi)
-    //        {
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //});
+    options.DocInclusionPredicate((_, description) =>
+    {
+        foreach (object metaData in description.ActionDescriptor.EndpointMetadata)
+        {
+            if (metaData is IIncludeOpenApi)
+            {
+                return true;
+            }
+        }
+        return false;
+    });
 });
 
 var app = builder.Build();

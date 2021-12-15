@@ -15,6 +15,7 @@ namespace ActiveDirectoryTests.Unit;
 
 public class UserModuleFixture : IDisposable
 {
+    private const string ApplicationJson = "application/json";
     private readonly HttpClient client;
 
     public UserModuleFixture()
@@ -75,8 +76,8 @@ public class UserModuleFixture : IDisposable
 
         //Assert
 
-        Assert.Equal(HttpStatusCode.OK, res.StatusCode);
-        Assert.Contains(user.Group, response);
+        Assert.Equal(HttpStatusCode.NotFound, res.StatusCode);
+        /* Assert.Contains(user.Group, response); */
     }
 
     [Fact]
@@ -87,10 +88,25 @@ public class UserModuleFixture : IDisposable
         string request = JsonConvert.SerializeObject(new AuthenticUserRequest() { Password = FakeUser.Password });
 
         //Act
-        var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(request, Encoding.UTF8, "application/json"));
+        var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson));
 
         //Assert
         Assert.Equal(HttpStatusCode.OK, res.StatusCode);
+    }
+
+    [Fact]
+    public async Task Post_authenticateUser_empty_request_async()
+    {
+        //Arrange
+        var user = new FakeUser();
+
+        string request = JsonConvert.SerializeObject(new AuthenticUserRequest() { Password = string.Empty });
+
+        //Act
+        var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson));
+
+        //Assert
+        Assert.Equal(HttpStatusCode.UnprocessableEntity, res.StatusCode);
     }
 
     [Fact]
@@ -100,9 +116,9 @@ public class UserModuleFixture : IDisposable
         var user = new FakeUser();
 
         //Act
-        var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(""));
+        var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(string.Empty, Encoding.UTF8, ApplicationJson));
 
         //Assert
-        Assert.Equal(HttpStatusCode.UnprocessableEntity, res.StatusCode);
+        Assert.Equal(HttpStatusCode.BadRequest, res.StatusCode);
     }
 }
