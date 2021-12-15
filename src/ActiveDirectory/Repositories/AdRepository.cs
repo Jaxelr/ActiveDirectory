@@ -105,7 +105,7 @@ public class AdRepository : IAdRepository
                     {
                         var user = GetUser(result.Properties[member][counter].ToString());
 
-                        if (user is not null)
+                        if (user is not null && !string.IsNullOrEmpty(user.UserName))
                         {
                             user.Group = group;
                             response.Add(user);

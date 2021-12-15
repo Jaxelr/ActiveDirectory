@@ -12,7 +12,7 @@ public class MainModule : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app) =>
         app.MapGet("/", (AppSettings settings, HttpContext ctx) =>
         {
-            ctx.Response.Redirect(settings.RouteDefinition.SwaggerUiEndpoint);
+            ctx.Response.Redirect(settings.RouteDefinition.RouteSuffix);
             return Task.CompletedTask;
         });
 }
