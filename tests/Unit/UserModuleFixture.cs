@@ -69,15 +69,15 @@ public class UserModuleFixture : IDisposable
     {
         //Arrange
         var user = new FakeUser();
+        string request = JsonConvert.SerializeObject(new IsUserInGroupRequest() { Groups = new string[] { user.Group } });
 
         //Act
-        var res = await client.GetAsync($"UserInGroup/{user.UserName}/{user.Group}");
+        var res = await client.PostAsync($"UserInGroup/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson));
         string response = await res.Content.ReadAsStringAsync();
 
         //Assert
-
-        Assert.Equal(HttpStatusCode.NotFound, res.StatusCode);
-        /* Assert.Contains(user.Group, response); */
+        Assert.Equal(HttpStatusCode.OK, res.StatusCode);
+        Assert.Contains(user.Group, response);
     }
 
     [Fact]
