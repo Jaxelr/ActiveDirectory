@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ActiveDirectory.Extensions;
 using ActiveDirectory.Models.Entities;
 using ActiveDirectory.Models.Internal;
@@ -17,6 +18,7 @@ namespace ActiveDirectory.Modules;
 public class UserModule : ICarterModule
 {
     private const string ModuleTag = "User";
+    private const string ApplicationJson = "application/json";
 
     public void AddRoutes(IEndpointRouteBuilder app)
     {
@@ -33,26 +35,6 @@ public class UserModule : ICarterModule
         .WithTags(ModuleTag)
         .IncludeInOpenApi();
 
-        /* Not Working right now */
-        //app.MapGet("/UserInGroup/{username}", async (string username, [FromBody] string[] groups, HttpContext ctx) =>
-        //    await ctx.ExecHandler(settings.Cache.CacheTimespan, () =>
-        //    {
-        //        (bool Belongs, IEnumerable<string> Groups) = repository.IsUserInGroups(username, groups);
-
-        //        return new IsUserInGroupResponse()
-        //        {
-        //            Belongs = Belongs,
-        //            Groups = Groups.Select(x => new UserGroup() { GroupName = x })
-        //        };
-        //    })
-        //)
-        //.Produces<IsUserInGroupResponse>(200)
-        //.Produces(204)
-        //.Produces<FailedResponse>(500)
-        //.WithName("UserInGroup")
-        //.WithTags(ModuleTag)
-        //.IncludeInOpenApi();
-
         app.MapGet("/UserGroup/{username}", async (string username, HttpContext ctx) =>
             await ctx.ExecHandler(settings.Cache.CacheTimespan, () => repository.GetUserGroups(username))
         )
@@ -60,6 +42,25 @@ public class UserModule : ICarterModule
         .Produces(204)
         .Produces<FailedResponse>(500)
         .WithName("UserGroup")
+        .WithTags(ModuleTag)
+        .IncludeInOpenApi();
+
+        app.MapPost("/UserInGroup/{username}", async (string username, IsUserInGroupRequest request, HttpContext ctx) =>
+            await ctx.ExecHandler(settings.Cache.CacheTimespan, () =>
+            {
+                (bool Belongs, IEnumerable<string> Groups) = repository.IsUserInGroups(username, request.Groups);
+
+                return new IsUserInGroupResponse()
+                {
+                    Belongs = Belongs,
+                    Groups = Groups.Select(x => new UserGroup() { GroupName = x })
+                };
+            })
+        )
+        .Produces<IsUserInGroupResponse>(200)
+        .Produces<FailedResponse>(500)
+        .Accepts<IsUserInGroupRequest>(ApplicationJson)
+        .WithName("UserInGroup")
         .WithTags(ModuleTag)
         .IncludeInOpenApi();
 
@@ -77,11 +78,10 @@ public class UserModule : ICarterModule
             });
         })
         .Produces<AuthenticUserResponse>(200)
-        .Produces(204)
         .Produces<IEnumerable<ModelError>>(422)
         .Produces<FailedResponse>(500)
+        .Accepts<AuthenticUserRequest>(ApplicationJson)
         .WithName("AuthenticateUser")
-        .Accepts<AuthenticUserRequest>("application/json")
         .WithTags(ModuleTag)
         .IncludeInOpenApi();
     }
