@@ -73,7 +73,7 @@ This project depends on net 5.0. The following oss libraries are used on this re
 
 - [Carter](https://github.com/CarterCommunity/Carter)
 - [Xunit](https://github.com/xunit/xunit)
-- [Swashbuckle.Swaggerui](https://github.com/domaindrivendev/Swashbuckle)
+- [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
 
 [github-main]: https://github.com/Jaxelr/ActiveDirectory/workflows/.NET/badge.svg?branch=master
 [azure-main-img]: https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_apis/build/status/Jaxelr.ActiveDirectory?branchName=master
