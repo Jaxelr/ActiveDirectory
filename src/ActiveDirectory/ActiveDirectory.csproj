@@ -38,6 +38,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <SupportedPlatform Include="windows" />
+  </ItemGroup>
+  <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>ActiveDirectoryTests</_Parameter1>
     </AssemblyAttribute>

@@ -16,7 +16,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
+  <ItemGroup>
+    <SupportedPlatform Include="windows" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\ActiveDirectory\ActiveDirectory.csproj" />
   </ItemGroup>
