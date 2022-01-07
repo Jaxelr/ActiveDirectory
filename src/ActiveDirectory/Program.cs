@@ -3,6 +3,7 @@ using ActiveDirectory.Extensions;
 using ActiveDirectory.Models.Internal;
 using ActiveDirectory.Repositories;
 using Carter;
+using Carter.Cache;
 using Carter.OpenApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -14,11 +15,17 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Linq;
+using Serilog;
 
 const string ServiceName = "Active Directory";
 const string Policy = "DefaultPolicy";
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((ctx, services, config) =>
+    config
+    .ReadFrom.Configuration(ctx.Configuration)
+    .ReadFrom.Services(services));
 
 var settings = new AppSettings();
 
@@ -36,14 +43,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddLogging(opt =>
-{
-    opt.ClearProviders();
-    opt.AddConsole();
-    opt.AddDebug();
-    opt.AddConfiguration(builder.Configuration.GetSection("Logging"));
-});
-
+builder.Services.AddCarterCaching(new CachingOption(settings.Cache.CacheMaxSize));
 builder.Services.AddCarter();
 
 builder.Services.AddSingleton(settings); //typeof(AppSettings)
@@ -97,6 +97,7 @@ app.UseHealthChecks("/healthcheck", new HealthCheckOptions()
     ResponseWriter = WriteResponse
 });
 
+app.UseCarterCaching();
 app.UseEndpoints(builder => builder.MapCarter());
 
 app.Run();
