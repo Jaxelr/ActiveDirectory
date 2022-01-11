@@ -1,8 +1,8 @@
 ﻿namespace ActiveDirectory.Models.Internal;
 
-public class CacheConfig
+public record CacheConfig
 {
-    public bool CacheEnabled { get; set; }
-    public int CacheTimespan { get; set; }
-    public int CacheMaxSize { get; set; }
+    public bool CacheEnabled { get; init; }
+    public int CacheTimespan { get; init; }
+    public int CacheMaxSize { get; init; }
 }

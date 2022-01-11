@@ -2,10 +2,10 @@
 
 namespace ActiveDirectory.Models.Internal;
 
-public class AppSettings
+public record AppSettings
 {
-    public CacheConfig Cache { get; set; }
-    public RouteDefinition RouteDefinition { get; set; }
-    public ICollection<string> Domains { get; set; }
-    public ICollection<string> Addresses { get; set; }
+    public CacheConfig Cache { get; init; }
+    public RouteDefinition RouteDefinition { get; init; }
+    public ICollection<string> Domains { get; init; }
+    public ICollection<string> Addresses { get; init; }
 }
