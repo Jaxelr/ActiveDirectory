@@ -71,13 +71,13 @@ The OpenApi version used is Version 3.0.1
 
 ## Dependencies & Libraries
 
-This project depends on net 6.0. The following oss libraries are used on this repo as dependencies:
+This project targets net 7.0. For previous versions, check the tags. The following oss libraries are used on this repo as dependencies:
 
 - [Carter](https://github.com/CarterCommunity/Carter)
 - [Xunit](https://github.com/xunit/xunit)
 - [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
-- [Serilog.AspNetCore](https://github.com/serilog/serilog-aspnetcore/) 
+- [Serilog.AspNetCore](https://github.com/serilog/serilog-aspnetcore/)
 
 [github-main]: https://github.com/Jaxelr/ActiveDirectory/workflows/.NET/badge.svg?branch=master
 [azure-main-img]: https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_apis/build/status/Jaxelr.ActiveDirectory?branchName=master
-[azure-main]: https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_build/latest?definitionId=2&branchName=master 
+[azure-main]: https://dev.azure.com/jaxelr0433/ActiveDirectoryService/_build/latest?definitionId=2&branchName=master
