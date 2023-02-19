@@ -17,8 +17,8 @@ public class GroupModule : ICarterModule
         app.MapGet("/GroupUser/{group}", async (string group, AppSettings settings, IAdRepository repository, HttpContext ctx) =>
             await ctx.ExecHandler(settings.Cache.CacheTimespan, () => repository.GetGroupUsers(group))
         )
-        .Produces<IEnumerable<User>>(200)
-        .Produces<FailedResponse>(500)
+        .Produces<IEnumerable<User>>(StatusCodes.Status200OK)
+        .Produces<FailedResponse>(StatusCodes.Status500InternalServerError)
         .WithName("GroupUser")
         .WithTags("Group")
         .IncludeInOpenApi();

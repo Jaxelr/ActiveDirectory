@@ -28,9 +28,9 @@ public class UserModule : ICarterModule
         app.MapGet("/User/{username}", async (string username, HttpContext ctx) =>
             await ctx.ExecHandler(settings.Cache.CacheTimespan, () => repository.GetUserInfo(username))
         )
-        .Produces<User>(200)
-        .Produces(204)
-        .Produces<FailedResponse>(500)
+        .Produces<User>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent)
+        .Produces<FailedResponse>(StatusCodes.Status500InternalServerError)
         .WithName("User")
         .WithTags(ModuleTag)
         .IncludeInOpenApi();
@@ -38,9 +38,9 @@ public class UserModule : ICarterModule
         app.MapGet("/UserGroup/{username}", async (string username, HttpContext ctx) =>
             await ctx.ExecHandler(settings.Cache.CacheTimespan, () => repository.GetUserGroups(username))
         )
-        .Produces<IEnumerable<UserGroup>>(200)
-        .Produces(204)
-        .Produces<FailedResponse>(500)
+        .Produces<IEnumerable<UserGroup>>(StatusCodes.Status200OK)
+        .Produces(StatusCodes.Status204NoContent)
+        .Produces<FailedResponse>(StatusCodes.Status500InternalServerError)
         .WithName("UserGroup")
         .WithTags(ModuleTag)
         .IncludeInOpenApi();
@@ -57,8 +57,8 @@ public class UserModule : ICarterModule
                 };
             })
         )
-        .Produces<IsUserInGroupResponse>(200)
-        .Produces<FailedResponse>(500)
+        .Produces<IsUserInGroupResponse>(StatusCodes.Status200OK)
+        .Produces<FailedResponse>(StatusCodes.Status500InternalServerError)
         .Accepts<IsUserInGroupRequest>(ApplicationJson)
         .WithName("UserInGroup")
         .WithTags(ModuleTag)
@@ -77,9 +77,9 @@ public class UserModule : ICarterModule
                 };
             });
         })
-        .Produces<AuthenticUserResponse>(200)
-        .Produces<IEnumerable<ModelError>>(422)
-        .Produces<FailedResponse>(500)
+        .Produces<AuthenticUserResponse>(StatusCodes.Status200OK)
+        .Produces<IEnumerable<ModelError>>(StatusCodes.Status422UnprocessableEntity)
+        .Produces<FailedResponse>(StatusCodes.Status500InternalServerError)
         .Accepts<AuthenticUserRequest>(ApplicationJson)
         .WithName("AuthenticateUser")
         .WithTags(ModuleTag)

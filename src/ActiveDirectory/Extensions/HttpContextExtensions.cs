@@ -25,16 +25,16 @@ public static class HttpContextExtensions
 
             if (response is null)
             {
-                ctx.Response.StatusCode = 204;
+                ctx.Response.StatusCode = StatusCodes.Status204NoContent;
                 return;
             }
 
-            ctx.Response.StatusCode = 200;
+            ctx.Response.StatusCode = StatusCodes.Status200OK;
             await ctx.Response.Negotiate(response);
         }
         catch (Exception ex)
         {
-            ctx.Response.StatusCode = 500;
+            ctx.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await ctx.Response.Negotiate(new FailedResponse(ex));
         }
     }
@@ -56,16 +56,16 @@ public static class HttpContextExtensions
 
             if (response is null)
             {
-                ctx.Response.StatusCode = 204;
+                ctx.Response.StatusCode = StatusCodes.Status204NoContent;
                 return;
             }
 
-            ctx.Response.StatusCode = 200;
+            ctx.Response.StatusCode = StatusCodes.Status200OK;
             await ctx.Response.Negotiate(response);
         }
         catch (Exception ex)
         {
-            ctx.Response.StatusCode = 500;
+            ctx.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await ctx.Response.Negotiate(new FailedResponse(ex));
         }
     }
@@ -85,7 +85,7 @@ public static class HttpContextExtensions
 
             if (!result.IsValid)
             {
-                ctx.Response.StatusCode = 422;
+                ctx.Response.StatusCode = StatusCodes.Status422UnprocessableEntity;
                 await ctx.Response.Negotiate(result.GetFormattedErrors());
                 return;
             }
@@ -94,21 +94,21 @@ public static class HttpContextExtensions
 
             if (response == null)
             {
-                ctx.Response.StatusCode = 204;
+                ctx.Response.StatusCode = StatusCodes.Status204NoContent;
                 return;
             }
 
-            ctx.Response.StatusCode = 200;
+            ctx.Response.StatusCode = StatusCodes.Status200OK;
             await ctx.Response.Negotiate(response);
         }
         catch (ArgumentNullException ex)
         {
-            ctx.Response.StatusCode = 400;
+            ctx.Response.StatusCode = StatusCodes.Status400BadRequest;
             await ctx.Response.Negotiate(new FailedResponse(ex));
         }
         catch (Exception ex)
         {
-            ctx.Response.StatusCode = 500;
+            ctx.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await ctx.Response.Negotiate(new FailedResponse(ex));
         }
     }
@@ -131,7 +131,7 @@ public static class HttpContextExtensions
 
             if (!result.IsValid)
             {
-                ctx.Response.StatusCode = 422;
+                ctx.Response.StatusCode = StatusCodes.Status422UnprocessableEntity;
                 await ctx.Response.Negotiate(result.GetFormattedErrors());
                 return;
             }
@@ -142,21 +142,21 @@ public static class HttpContextExtensions
 
             if (response == null)
             {
-                ctx.Response.StatusCode = 204;
+                ctx.Response.StatusCode = StatusCodes.Status204NoContent;
                 return;
             }
 
-            ctx.Response.StatusCode = 200;
+            ctx.Response.StatusCode = StatusCodes.Status200OK;
             await ctx.Response.Negotiate(response);
         }
         catch (ArgumentNullException ex)
         {
-            ctx.Response.StatusCode = 400;
+            ctx.Response.StatusCode = StatusCodes.Status400BadRequest;
             await ctx.Response.Negotiate(new FailedResponse(ex));
         }
         catch (Exception ex)
         {
-            ctx.Response.StatusCode = 500;
+            ctx.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await ctx.Response.Negotiate(new FailedResponse(ex));
         }
     }
