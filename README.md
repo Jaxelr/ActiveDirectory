@@ -1,6 +1,6 @@
 # Active Directory Service
 
-This web service is an http wrapper over basic LDAP calls to the Microsoft Active Directory service, i mostly use it on clients for quick onsite domain discovery.
+This web service is an http wrapper over basic LDAP calls to the Microsoft Active Directory service, I mostly use it on clients for quick onsite domain discovery.
 
 | Ci  | Status | Branch |
 | :---: | :---: | :---: |
