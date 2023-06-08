@@ -3,6 +3,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <AssemblyName>ActiveDirectory</AssemblyName>
     <OutputType>Exe</OutputType>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Remove=".editorconfig" />
