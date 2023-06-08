@@ -29,13 +29,11 @@ public static class HttpContextExtensions
                 return;
             }
 
-            ctx.Response.StatusCode = StatusCodes.Status200OK;
-            await ctx.Response.Negotiate(response);
+            await ctx.NegotiateResponse(response, StatusCodes.Status200OK);
         }
         catch (Exception ex)
         {
-            ctx.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            await ctx.Response.Negotiate(new FailedResponse(ex));
+            await ctx.NegotiateResponse(new FailedResponse(ex), StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -44,7 +42,8 @@ public static class HttpContextExtensions
     /// </summary>
     /// <typeparam name="TOut"></typeparam>
     /// <param name="ctx">The http context to process</param>
-    /// <param name="handler">A func handler that will be validated and executed</param>
+    /// <param name="cacheTimespan">Time alive for the store to keep</param>
+    /// <param name="handler">A func handler that will be executed</param>
     /// <returns name="Task">A Task object with the results</returns>
     public static async Task ExecHandler<TOut>(this HttpContext ctx, int cacheTimespan, Func<TOut> handler)
     {
@@ -60,13 +59,11 @@ public static class HttpContextExtensions
                 return;
             }
 
-            ctx.Response.StatusCode = StatusCodes.Status200OK;
-            await ctx.Response.Negotiate(response);
+            await ctx.NegotiateResponse(response, StatusCodes.Status200OK);
         }
         catch (Exception ex)
         {
-            ctx.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            await ctx.Response.Negotiate(new FailedResponse(ex));
+            await ctx.NegotiateResponse(new FailedResponse(ex), StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -85,31 +82,27 @@ public static class HttpContextExtensions
 
             if (!result.IsValid)
             {
-                ctx.Response.StatusCode = StatusCodes.Status422UnprocessableEntity;
-                await ctx.Response.Negotiate(result.GetFormattedErrors());
+                await ctx.NegotiateResponse(result.GetFormattedErrors(), StatusCodes.Status422UnprocessableEntity);
                 return;
             }
 
             var response = handler(@in);
 
-            if (response == null)
+            if (response is null)
             {
                 ctx.Response.StatusCode = StatusCodes.Status204NoContent;
                 return;
             }
 
-            ctx.Response.StatusCode = StatusCodes.Status200OK;
-            await ctx.Response.Negotiate(response);
+            await ctx.NegotiateResponse(response, StatusCodes.Status200OK);
         }
         catch (ArgumentNullException ex)
         {
-            ctx.Response.StatusCode = StatusCodes.Status400BadRequest;
-            await ctx.Response.Negotiate(new FailedResponse(ex));
+            await ctx.NegotiateResponse(new FailedResponse(ex), StatusCodes.Status400BadRequest);
         }
         catch (Exception ex)
         {
-            ctx.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            await ctx.Response.Negotiate(new FailedResponse(ex));
+            await ctx.NegotiateResponse(new FailedResponse(ex), StatusCodes.Status500InternalServerError);
         }
     }
 
@@ -131,8 +124,7 @@ public static class HttpContextExtensions
 
             if (!result.IsValid)
             {
-                ctx.Response.StatusCode = StatusCodes.Status422UnprocessableEntity;
-                await ctx.Response.Negotiate(result.GetFormattedErrors());
+                await ctx.NegotiateResponse(result.GetFormattedErrors(), StatusCodes.Status422UnprocessableEntity);
                 return;
             }
 
@@ -140,24 +132,23 @@ public static class HttpContextExtensions
 
             var response = handler(@in);
 
-            if (response == null)
+            if (response is null)
             {
                 ctx.Response.StatusCode = StatusCodes.Status204NoContent;
                 return;
             }
 
-            ctx.Response.StatusCode = StatusCodes.Status200OK;
-            await ctx.Response.Negotiate(response);
-        }
-        catch (ArgumentNullException ex)
-        {
-            ctx.Response.StatusCode = StatusCodes.Status400BadRequest;
-            await ctx.Response.Negotiate(new FailedResponse(ex));
+            await ctx.NegotiateResponse(response, StatusCodes.Status200OK);
         }
         catch (Exception ex)
         {
-            ctx.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            await ctx.Response.Negotiate(new FailedResponse(ex));
+            await ctx.NegotiateResponse(new FailedResponse(ex), StatusCodes.Status500InternalServerError);
         }
+    }
+
+    private static async Task NegotiateResponse<T>(this HttpContext ctx, T response, int statusCode)
+    {
+        ctx.Response.StatusCode = statusCode;
+        await ctx.Response.Negotiate(response);
     }
 }
