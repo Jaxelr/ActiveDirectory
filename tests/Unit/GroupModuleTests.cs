@@ -10,11 +10,11 @@ using Xunit;
 
 namespace ActiveDirectoryTests.Unit;
 
-public class GroupModuleFixture : IDisposable
+public class GroupModuleTests : IDisposable
 {
     private readonly HttpClient client;
 
-    public GroupModuleFixture()
+    public GroupModuleTests()
     {
         var server = new WebApplicationFactory<Program>()
         .WithWebHostBuilder(builder => builder.ConfigureServices(services => services.AddSingleton<IAdRepository, MockAdRepository>()));

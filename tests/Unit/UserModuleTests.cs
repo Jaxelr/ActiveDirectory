@@ -13,12 +13,12 @@ using Xunit;
 
 namespace ActiveDirectoryTests.Unit;
 
-public class UserModuleFixture : IDisposable
+public class UserModuleTests : IDisposable
 {
     private const string ApplicationJson = "application/json";
     private readonly HttpClient client;
 
-    public UserModuleFixture()
+    public UserModuleTests()
     {
         var server = new WebApplicationFactory<Program>()
         .WithWebHostBuilder(builder => builder.ConfigureServices(services => services.AddSingleton<IAdRepository, MockAdRepository>()));
@@ -28,7 +28,6 @@ public class UserModuleFixture : IDisposable
     public void Dispose()
     {
         client?.Dispose();
-
         GC.SuppressFinalize(this);
     }
 

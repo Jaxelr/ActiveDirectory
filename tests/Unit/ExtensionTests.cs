@@ -4,7 +4,7 @@ using Xunit;
 
 namespace ActiveDirectoryTests.Unit;
 
-public class ExtensionFixtures
+public class ExtensionTests
 {
     [Fact]
     public void Collection_extension_is_empty_unitialized()
