@@ -1,3 +1,4 @@
+using System.Text.Json;
 using System.Threading.Tasks;
 using ActiveDirectory.Extensions;
 using ActiveDirectory.Models.Internal;
@@ -14,7 +15,6 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json.Linq;
 using Serilog;
 
 const string ServiceName = "Active Directory";
@@ -106,11 +106,12 @@ static Task WriteResponse(HttpContext context, HealthReport report)
 {
     context.Response.ContentType = "application/json";
 
-    var json = new JObject(
-                new JProperty("statusCode", report.Status),
-                new JProperty("status", report.Status.ToString()),
-                new JProperty("timelapsed", report.TotalDuration)
-        );
+    var json = new
+    {
+        statusCode = report.Status,
+        status = report.Status.ToString(),
+        timelapsed = report.TotalDuration
+    };
 
-    return context.Response.WriteAsync(json.ToString(Newtonsoft.Json.Formatting.Indented));
+    return context.Response.WriteAsync(JsonSerializer.Serialize(json));
 }
