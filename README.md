@@ -39,8 +39,8 @@ The current appsettings.json can be configured manually:
       { "Name": "Console" }
     ],
     "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId" ],
-    "AllowedHosts": "*"
   },
+  "AllowedHosts": "*",
   "AppSettings": {
     "Cache": {
       "CacheTimespan": 60,
