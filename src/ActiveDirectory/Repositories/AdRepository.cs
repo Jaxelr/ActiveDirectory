@@ -88,28 +88,27 @@ public class AdRepository : IAdRepository
     {
         IEnumerable<User> GetGroupUsers(string domain)
         {
-            const string member = "member";
+            const string member = nameof(member);
             var response = new List<User>();
 
             //Create a search by Group Name
-            using (var search = new DirectorySearcher(new DirectoryEntry(domain), $"(cn={group})"))
+            using var search = new DirectorySearcher(new DirectoryEntry(domain), $"(cn={group})");
+
+            //Get the users in the group
+            search.PropertiesToLoad.Add(member);
+            var result = search.FindOne();
+            if (result is not null)
             {
-                //Get the users in the group
-                search.PropertiesToLoad.Add(member);
-                var result = search.FindOne();
-                if (result is not null)
+                int usersCount = result.Properties[member].Count;
+
+                for (int counter = 0; counter < usersCount; counter++)
                 {
-                    int usersCount = result.Properties[member].Count;
+                    var user = GetUser(result.Properties[member][counter].ToString());
 
-                    for (int counter = 0; counter < usersCount; counter++)
+                    if (user is not null && !string.IsNullOrEmpty(user.UserName))
                     {
-                        var user = GetUser(result.Properties[member][counter].ToString());
-
-                        if (user is not null && !string.IsNullOrEmpty(user.UserName))
-                        {
-                            user.Group = group;
-                            response.Add(user);
-                        }
+                        user.Group = group;
+                        response.Add(user);
                     }
                 }
             }
@@ -124,30 +123,29 @@ public class AdRepository : IAdRepository
     {
         IEnumerable<UserGroup> GetUserGroups(string domain)
         {
-            const string memberOf = "memberOf";
+            const string memberOf = nameof(memberOf);
             var userGroups = new List<UserGroup>();
             //Strip the Domain Name from userName if included
             string strippedName = StripDomain(userName);
 
             //Create a search by User Name
-            using (var search = new DirectorySearcher(new DirectoryEntry(domain), $"(samaccountname={strippedName})"))
+            using var search = new DirectorySearcher(new DirectoryEntry(domain), $"(samaccountname={strippedName})");
+
+            //Get the group membership for the user
+            search.PropertiesToLoad.Add(memberOf);
+
+            var result = search.FindOne();
+            if (result is not null)
             {
-                //Get the group membership for the user
-                search.PropertiesToLoad.Add(memberOf);
+                int groupsCount = result.Properties[memberOf].Count;
 
-                var result = search.FindOne();
-                if (result is not null)
+                for (int counter = 0; counter < groupsCount; counter++)
                 {
-                    int groupsCount = result.Properties[memberOf].Count;
+                    string groupName = GetGroup((string) result.Properties[memberOf][counter]);
 
-                    for (int counter = 0; counter < groupsCount; counter++)
+                    if (groupName is not null)
                     {
-                        string groupName = GetGroup((string) result.Properties[memberOf][counter]);
-
-                        if (groupName is not null)
-                        {
-                            userGroups.Add(new UserGroup { GroupName = groupName });
-                        }
+                        userGroups.Add(new UserGroup { GroupName = groupName });
                     }
                 }
             }
@@ -167,20 +165,19 @@ public class AdRepository : IAdRepository
             var user = new User();
 
             //Create a search by User Name
-            using (var search = new DirectorySearcher(new DirectoryEntry(domain), $"(samaccountname={strippedName})"))
-            {
-                //Get the group membership for the user
-                search.PropertiesToLoad.Add("sAMAccountName");
-                search.PropertiesToLoad.Add("displayName");
-                search.PropertiesToLoad.Add("mail");
+            using var search = new DirectorySearcher(new DirectoryEntry(domain), $"(samaccountname={strippedName})");
 
-                var result = search.FindOne();
-                if (result is not null)
-                {
-                    user.UserName = result.Properties["sAMAccountName"][0].ToString() ?? string.Empty;
-                    user.DisplayName = result.Properties["displayName"].Count > 0 ? result.Properties["displayName"][0].ToString() : string.Empty;
-                    user.Email = result.Properties["mail"].Count > 0 ? result.Properties["mail"][0].ToString() : string.Empty;
-                }
+            //Get the group membership for the user
+            search.PropertiesToLoad.Add("sAMAccountName");
+            search.PropertiesToLoad.Add("displayName");
+            search.PropertiesToLoad.Add("mail");
+
+            var result = search.FindOne();
+            if (result is not null)
+            {
+                user.UserName = result.Properties["sAMAccountName"][0].ToString() ?? string.Empty;
+                user.DisplayName = result.Properties["displayName"].Count > 0 ? result.Properties["displayName"][0].ToString() : string.Empty;
+                user.Email = result.Properties["mail"].Count > 0 ? result.Properties["mail"][0].ToString() : string.Empty;
             }
 
             return user;
@@ -188,7 +185,7 @@ public class AdRepository : IAdRepository
 
         return Domains
             .AsParallel()
-            .Select(x => GetUserInfo(x))
+            .Select(GetUserInfo)
             .FirstOrDefault(y => y.UserName != null);
     }
 
@@ -228,15 +225,14 @@ public class AdRepository : IAdRepository
         var user = new User();
 
         //Get the object by DN
-        using (var de = new DirectoryEntry(ToLDAP(domain)))
+        using var de = new DirectoryEntry(ToLDAP(domain));
+
+        //Ignore other objects
+        if (de.SchemaClassName == "user")
         {
-            //Ignore other objects
-            if (de.SchemaClassName == "user")
-            {
-                user.UserName = de.Properties["sAMAccountName"].Value?.ToString() ?? string.Empty;
-                user.DisplayName = de.Properties["displayName"].Value?.ToString() ?? string.Empty;
-                user.Email = de.Properties["mail"].Value?.ToString() ?? string.Empty;
-            }
+            user.UserName = de.Properties["sAMAccountName"].Value?.ToString() ?? string.Empty;
+            user.DisplayName = de.Properties["displayName"].Value?.ToString() ?? string.Empty;
+            user.Email = de.Properties["mail"].Value?.ToString() ?? string.Empty;
         }
 
         return user;
@@ -245,13 +241,12 @@ public class AdRepository : IAdRepository
     private static string GetGroup(string domain)
     {
         //Get the object by DN
-        using (var de = new DirectoryEntry(ToLDAP(domain)))
+        using var de = new DirectoryEntry(ToLDAP(domain));
+
+        //Ignore other objects
+        if (de?.SchemaClassName == "group")
         {
-            //Ignore other objects
-            if (de?.SchemaClassName == "group")
-            {
-                return de.Properties["name"].Value?.ToString();
-            }
+            return de.Properties["name"].Value?.ToString();
         }
 
         return string.Empty;
