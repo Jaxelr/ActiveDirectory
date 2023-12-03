@@ -2,5 +2,5 @@
 
 public class IsUserInGroupRequest
 {
-    public string[] Groups { get; set; }
+    public string[] Groups { get; set; } = [];
 }
