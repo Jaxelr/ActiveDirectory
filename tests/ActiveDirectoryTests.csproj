@@ -23,6 +23,6 @@
     </AssemblyAttribute>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\ActiveDirectory\ActiveDirectory.csproj" />
+    <ProjectReference Include="..\src\ActiveDirectory.csproj" />
   </ItemGroup>
 </Project>
