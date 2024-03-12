@@ -27,8 +27,16 @@ public class UserModuleTests : IDisposable
 
     public void Dispose()
     {
-        client?.Dispose();
+        Dispose(true);
         GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            client?.Dispose();
+        }
     }
 
     [Fact]
