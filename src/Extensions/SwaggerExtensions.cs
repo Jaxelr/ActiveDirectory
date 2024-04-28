@@ -38,7 +38,7 @@ public static class SwaggerExtensions
         return builder;
     }
 
-    public static WebApplication UseSwagger(this WebApplication app)
+    public static WebApplication UseSwagger(this WebApplication app, AppSettings _)
     {
         app.UseSwagger();
         app.UseSwaggerUI();

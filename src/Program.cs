@@ -51,7 +51,7 @@ else
 app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseSwagger();
+app.UseSwagger(settings);
 
 app.UseHealthChecks();
 
