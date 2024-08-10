@@ -38,7 +38,6 @@ public class GroupModuleTests : IDisposable
         string response = await res.Content.ReadAsStringAsync();
 
         //Assert
-
         Assert.Equal(HttpStatusCode.OK, res.StatusCode);
         Assert.Contains(group.GroupName, response);
     }

@@ -50,7 +50,6 @@ public class UserModuleTests : IDisposable
         string response = await res.Content.ReadAsStringAsync();
 
         //Assert
-
         Assert.Equal(HttpStatusCode.OK, res.StatusCode);
         Assert.Contains(user.UserName, response);
     }
@@ -66,7 +65,6 @@ public class UserModuleTests : IDisposable
         string response = await res.Content.ReadAsStringAsync();
 
         //Assert
-
         Assert.Equal(HttpStatusCode.OK, res.StatusCode);
         Assert.Contains(user.Group, response);
     }
@@ -76,7 +74,7 @@ public class UserModuleTests : IDisposable
     {
         //Arrange
         var user = new FakeUser();
-        string request = JsonConvert.SerializeObject(new IsUserInGroupRequest() { Groups = new string[] { user.Group } });
+        string request = JsonConvert.SerializeObject(new IsUserInGroupRequest() { Groups = [user.Group] });
 
         //Act
         var res = await client.PostAsync($"UserInGroup/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson));
