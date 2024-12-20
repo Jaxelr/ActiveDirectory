@@ -4,6 +4,7 @@
     <AssemblyName>ActiveDirectory</AssemblyName>
     <OutputType>Exe</OutputType>
     <LangVersion>latest</LangVersion>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
   <ItemGroup>
     <None Remove=".editorconfig" />
