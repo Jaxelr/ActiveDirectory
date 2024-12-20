@@ -4,7 +4,7 @@ using ActiveDirectory.Models.Entities;
 using ActiveDirectory.Repositories;
 using ActiveDirectoryTests.Fakes;
 
-namespace ActiveDirectoryTests;
+namespace ActiveDirectoryTests.Mocks;
 
 public class MockAdRepository : IAdRepository
 {

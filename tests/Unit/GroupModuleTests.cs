@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ActiveDirectory.Repositories;
 using ActiveDirectoryTests.Fakes;
+using ActiveDirectoryTests.Mocks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;

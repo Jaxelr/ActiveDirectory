@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ActiveDirectory.Models.Operations;
 using ActiveDirectory.Repositories;
 using ActiveDirectoryTests.Fakes;
+using ActiveDirectoryTests.Mocks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
