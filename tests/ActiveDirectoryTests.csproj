@@ -18,7 +18,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <SupportedPlatform Include="windows" />
+    <AssemblyAttribute Include="System.Runtime.Versioning.SupportedOSPlatform">
+      <_Parameter1>windows</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\ActiveDirectory.csproj" />
