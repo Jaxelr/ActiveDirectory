@@ -214,7 +214,7 @@ public class AdRepository : IAdRepository
         if (userName.Contains('\\'))
         {
             int i = userName.IndexOf('\\');
-            userName = userName.Substring(i + 1, userName.Length - i - 1);
+            userName = userName[(i + 1)..];
         }
 
         return userName;
