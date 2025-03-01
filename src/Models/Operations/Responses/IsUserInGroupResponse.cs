@@ -6,5 +6,5 @@ namespace ActiveDirectory.Models.Operations;
 public class IsUserInGroupResponse
 {
     public bool Belongs { get; set; }
-    public IEnumerable<UserGroup> Groups { get; set; } = null!;
+    public IEnumerable<UserGroup> Groups { get; set; } = [];
 }

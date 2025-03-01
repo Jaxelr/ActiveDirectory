@@ -58,4 +58,4 @@ app.UseHealthChecks();
 app.UseCarterCaching();
 app.MapCarter();
 
-app.Run();
+await app.RunAsync();
