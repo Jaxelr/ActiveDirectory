@@ -71,7 +71,7 @@ The OpenApi version used is Version 3.0.1
 
 ## Dependencies & Libraries
 
-This project targets net 8.0. For previous versions, check the tags. The following oss libraries are used on this repo as dependencies:
+This project targets net 9.0. For previous versions, check the tags. The following oss libraries are used on this repo as dependencies:
 
 - [Carter](https://github.com/CarterCommunity/Carter)
 - [Xunit](https://github.com/xunit/xunit)
