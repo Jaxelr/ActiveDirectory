@@ -10,7 +10,6 @@ using ActiveDirectoryTests.Mocks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using Xunit;
 
 namespace ActiveDirectoryTests.Unit;
 
@@ -47,8 +46,8 @@ public class UserModuleTests : IDisposable
         var user = new FakeUser();
 
         //Act
-        var res = await client.GetAsync($"User/{user.UserName}");
-        string response = await res.Content.ReadAsStringAsync();
+        var res = await client.GetAsync($"User/{user.UserName}", TestContext.Current.CancellationToken);
+        string response = await res.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         //Assert
         Assert.Equal(HttpStatusCode.OK, res.StatusCode);
@@ -62,8 +61,8 @@ public class UserModuleTests : IDisposable
         var user = new FakeUser();
 
         //Act
-        var res = await client.GetAsync($"UserGroup/{user.UserName}");
-        string response = await res.Content.ReadAsStringAsync();
+        var res = await client.GetAsync($"UserGroup/{user.UserName}", TestContext.Current.CancellationToken);
+        string response = await res.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         //Assert
         Assert.Equal(HttpStatusCode.OK, res.StatusCode);
@@ -78,8 +77,8 @@ public class UserModuleTests : IDisposable
         string request = JsonConvert.SerializeObject(new IsUserInGroupRequest() { Groups = [user.Group] });
 
         //Act
-        var res = await client.PostAsync($"UserInGroup/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson));
-        string response = await res.Content.ReadAsStringAsync();
+        var res = await client.PostAsync($"UserInGroup/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson), TestContext.Current.CancellationToken);
+        string response = await res.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         //Assert
         Assert.Equal(HttpStatusCode.OK, res.StatusCode);
@@ -94,7 +93,7 @@ public class UserModuleTests : IDisposable
         string request = JsonConvert.SerializeObject(new AuthenticUserRequest() { Password = FakeUser.Password });
 
         //Act
-        var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson));
+        var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson), TestContext.Current.CancellationToken);
 
         //Assert
         Assert.Equal(HttpStatusCode.OK, res.StatusCode);
@@ -109,7 +108,7 @@ public class UserModuleTests : IDisposable
         string request = JsonConvert.SerializeObject(new AuthenticUserRequest() { Password = string.Empty });
 
         //Act
-        var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson));
+        var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson), TestContext.Current.CancellationToken);
 
         //Assert
         Assert.Equal(HttpStatusCode.UnprocessableEntity, res.StatusCode);
@@ -122,7 +121,7 @@ public class UserModuleTests : IDisposable
         var user = new FakeUser();
 
         //Act
-        var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(string.Empty, Encoding.UTF8, ApplicationJson));
+        var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(string.Empty, Encoding.UTF8, ApplicationJson), TestContext.Current.CancellationToken);
 
         //Assert
         Assert.Equal(HttpStatusCode.BadRequest, res.StatusCode);

@@ -7,7 +7,6 @@ using ActiveDirectoryTests.Fakes;
 using ActiveDirectoryTests.Mocks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Xunit;
 
 namespace ActiveDirectoryTests.Unit;
 
@@ -35,8 +34,8 @@ public class GroupModuleTests : IDisposable
         var group = new FakeUserGroup();
 
         //Act
-        var res = await client.GetAsync($"GroupUser/{group.GroupName}");
-        string response = await res.Content.ReadAsStringAsync();
+        var res = await client.GetAsync($"GroupUser/{group.GroupName}", TestContext.Current.CancellationToken);
+        string response = await res.Content.ReadAsStringAsync(TestContext.Current.CancellationToken);
 
         //Assert
         Assert.Equal(HttpStatusCode.OK, res.StatusCode);

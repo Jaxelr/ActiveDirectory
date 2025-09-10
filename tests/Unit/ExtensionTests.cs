@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using ActiveDirectory.Extensions;
-using Xunit;
 
 namespace ActiveDirectoryTests.Unit;
 
