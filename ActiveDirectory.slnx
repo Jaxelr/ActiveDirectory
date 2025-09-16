@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Dockerfile" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/ActiveDirectory.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ActiveDirectoryTests.csproj" />
+  </Folder>
+</Solution>
