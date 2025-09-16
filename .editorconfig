@@ -3,6 +3,7 @@ root = true
 
 #All Files
 [*]
+charset = utf-8
 end_of_line = crlf
 indent_size = 4
 indent_style = space
@@ -124,7 +125,7 @@ dotnet_style_prefer_simplified_interpolation = true:suggestion
 dotnet_style_namespace_match_folder = true:suggestion
 dotnet_style_prefer_collection_expression = when_types_exactly_match:suggestion
 
-# .NET Naming conventions
+# CSharp Naming conventions
 
 csharp_indent_labels = one_less_than_current
 csharp_using_directive_placement = outside_namespace:silent
@@ -150,6 +151,7 @@ csharp_style_unused_value_assignment_preference = discard_variable:suggestion
 csharp_style_unused_value_expression_statement_preference = discard_variable:silent
 csharp_prefer_system_threading_lock = true:suggestion
 csharp_style_prefer_unbound_generic_type_in_nameof = true:suggestion
+csharp_style_prefer_implicitly_typed_lambda_expression = true:suggestion
 
 # .NET Naming conventions
 
@@ -215,4 +217,3 @@ dotnet_naming_rule.interface_types_must_be_prefixed_with_i.style = prefix_interf
 dotnet_diagnostic.IDE0052.severity = none
 dotnet_diagnostic.RCS1090.severity = none
 dotnet_diagnostic.IDE0130.severity = none
-tab_width = 4
