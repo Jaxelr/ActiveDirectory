@@ -74,7 +74,7 @@ The OpenApi version used is Version 3.0.1
 This project targets net 9.0. For previous versions, check the tags. The following oss libraries are used on this repo as dependencies:
 
 - [Carter](https://github.com/CarterCommunity/Carter)
-- [Xunit](https://github.com/xunit/xunit)
+- [Xunit.v3](https://github.com/xunit/xunit)
 - [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
 - [Serilog.AspNetCore](https://github.com/serilog/serilog-aspnetcore/)
 
