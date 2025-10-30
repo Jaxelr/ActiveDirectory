@@ -11,7 +11,7 @@
     <None Remove=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Carter.Cache" Version="0.3.0" />
+    <PackageReference Include="Carter.Cache" Version="0.3.1" />
     <PackageReference Include="Carter" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.10" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.10" />
