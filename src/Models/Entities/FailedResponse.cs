@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace ActiveDirectory.Models.Entities;
 
@@ -8,9 +8,9 @@ public record FailedResponse
     {
         Message = ex.Message;
 #if DEBUG
-        StackTrace = ex.StackTrace;
-        Source = ex.Source;
-        TargetMethod = ex.TargetSite.Name;
+        StackTrace = ex.StackTrace!;
+        Source = ex.Source!;
+        TargetMethod = ex.TargetSite?.Name!;
 #endif
     }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
@@ -12,7 +12,7 @@ public class AdRepository : IAdRepository
 {
     private readonly ILogger<AdRepository> logger;
 
-    public IEnumerable<string> Domains;
+    public IEnumerable<string> Domains = [];
 
     public AdRepository(ILogger<AdRepository> logger) : this(logger, new string[] { Domain.GetCurrentDomain().Name })
     {
@@ -52,7 +52,7 @@ public class AdRepository : IAdRepository
         {
             if (domain is null)
             {
-                domain = Domains.FirstOrDefault();
+                domain = Domains.FirstOrDefault()!;
             }
             else
             {
@@ -103,7 +103,7 @@ public class AdRepository : IAdRepository
 
                 for (int counter = 0; counter < usersCount; counter++)
                 {
-                    var user = GetUser(result.Properties[member][counter].ToString());
+                    var user = GetUser(result.Properties[member][counter].ToString()!);
 
                     if (user is not null && !string.IsNullOrEmpty(user.UserName))
                     {
@@ -156,7 +156,7 @@ public class AdRepository : IAdRepository
         return Domains.AsParallel().Select(x => GetUserGroups(x)).SelectMany(y => y);
     }
 
-    public User GetUserInfo(string userName)
+    public User? GetUserInfo(string userName)
     {
         User GetUserInfo(string domain)
         {
@@ -176,8 +176,8 @@ public class AdRepository : IAdRepository
             if (result is not null)
             {
                 user.UserName = result.Properties["sAMAccountName"][0].ToString() ?? string.Empty;
-                user.DisplayName = result.Properties["displayName"].Count > 0 ? result.Properties["displayName"][0].ToString() : string.Empty;
-                user.Email = result.Properties["mail"].Count > 0 ? result.Properties["mail"][0].ToString() : string.Empty;
+                user.DisplayName = result.Properties["displayName"].Count > 0 ? result.Properties["displayName"][0].ToString()! : string.Empty;
+                user.Email = result.Properties["mail"].Count > 0 ? result.Properties["mail"][0].ToString()! : string.Empty;
             }
 
             return user;
@@ -246,7 +246,7 @@ public class AdRepository : IAdRepository
         //Ignore other objects
         if (de?.SchemaClassName == "group")
         {
-            return de.Properties["name"].Value?.ToString();
+            return de.Properties["name"].Value?.ToString()!;
         }
 
         return string.Empty;

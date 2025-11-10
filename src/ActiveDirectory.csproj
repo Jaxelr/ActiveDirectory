@@ -4,6 +4,7 @@
     <AssemblyName>ActiveDirectory</AssemblyName>
     <OutputType>Exe</OutputType>
     <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
