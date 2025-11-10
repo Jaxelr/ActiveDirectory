@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +22,7 @@ public static class TypeExtensions
     internal static Type GetAnyElementType(this Type type)
     {
         if (type.IsArray)
-            return type.GetElementType();
+            return type.GetElementType()!;
 
         if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
             return type.GetGenericArguments()[0];

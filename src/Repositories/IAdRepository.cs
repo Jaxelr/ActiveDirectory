@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using ActiveDirectory.Models.Entities;
 
 namespace ActiveDirectory.Repositories;
@@ -15,7 +15,7 @@ public interface IAdRepository
 
     IEnumerable<User> GetGroupUsers(IEnumerable<string> groups);
 
-    User GetUserInfo(string userName);
+    User? GetUserInfo(string userName);
 
     (bool, IEnumerable<string>) IsUserInGroups(string userName, IEnumerable<string> groups);
 }

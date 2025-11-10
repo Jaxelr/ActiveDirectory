@@ -1,7 +1,7 @@
-﻿namespace ActiveDirectory.Models.Internal;
+namespace ActiveDirectory.Models.Internal;
 
 public record RouteDefinition
 {
-    public string RouteSuffix { get; init; }
-    public string Version { get; init; }
+    public string RouteSuffix { get; init; } = string.Empty;
+    public string Version { get; init; } = string.Empty;
 }
