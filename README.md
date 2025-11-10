@@ -67,7 +67,7 @@ The endpoint of root/healthcheck for each requests includes a json heartbeat to 
 
 ## OpenApi
 
-The OpenApi version used is Version 3.0.1
+The OpenApi version used is Version 3.0.4
 
 ## Dependencies & Libraries
 
