@@ -1,8 +1,8 @@
-﻿using ActiveDirectory.Models.Internal;
+using ActiveDirectory.Models.Internal;
 using Carter.OpenApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 
 namespace ActiveDirectory.Extensions;
 
