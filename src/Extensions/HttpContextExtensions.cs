@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using ActiveDirectory.Models.Entities;
 using Carter.Cache;
