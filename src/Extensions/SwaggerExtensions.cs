@@ -1,8 +1,8 @@
 using ActiveDirectory.Models.Internal;
-using Carter.OpenApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi;
+using Scalar.AspNetCore;
 
 namespace ActiveDirectory.Extensions;
 
@@ -10,39 +10,28 @@ public static class SwaggerExtensions
 {
     private const string ServiceName = "Active Directory";
 
-    public static WebApplicationBuilder AddSwagger(this WebApplicationBuilder builder, AppSettings settings)
+    public static WebApplicationBuilder AddOpenApi(this WebApplicationBuilder builder, AppSettings settings)
     {
-        //Swagger
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen(options =>
+        builder.Services.AddOpenApi(settings.RouteDefinition.Version, options =>
         {
-            options.SwaggerDoc(settings.RouteDefinition.Version, new OpenApiInfo
+            options.AddDocumentTransformer((document, _, _) =>
             {
-                Description = ServiceName,
-                Version = settings.RouteDefinition.Version,
-            });
-
-            options.DocInclusionPredicate((_, description) =>
-            {
-                foreach (object metaData in description.ActionDescriptor.EndpointMetadata)
+                document.Info = new OpenApiInfo
                 {
-                    if (metaData is IIncludeOpenApi)
-                    {
-                        return true;
-                    }
-                }
-                return false;
+                    Description = ServiceName,
+                    Version = settings.RouteDefinition.Version,
+                };
+                return System.Threading.Tasks.Task.CompletedTask;
             });
         });
 
         return builder;
     }
 
-    public static WebApplication UseSwagger(this WebApplication app, AppSettings _)
+    public static WebApplication UseOpenApi(this WebApplication app, AppSettings settings)
     {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-
+        app.MapOpenApi($"{settings.RouteDefinition.Resource}/{settings.RouteDefinition.Version}.json");
+        app.MapScalarApiReference($"{settings.RouteDefinition.Resource}");
         return app;
     }
 }

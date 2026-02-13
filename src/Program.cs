@@ -33,7 +33,7 @@ var _ = (settings.Domains.Empty()) ?
 
 builder.AddHealthChecks();
 
-builder.AddSwagger(settings);
+builder.AddOpenApi(settings);
 
 var app = builder.Build();
 
@@ -51,7 +51,7 @@ else
 app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseSwagger(settings);
+app.UseOpenApi(settings);
 
 app.UseHealthChecks();
 

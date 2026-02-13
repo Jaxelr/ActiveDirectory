@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using ActiveDirectory.Models.Internal;
 using Carter;
 using Microsoft.AspNetCore.Builder;
@@ -12,7 +12,7 @@ public class MainModule : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app) =>
         app.MapGet("/", (AppSettings settings, HttpContext ctx) =>
         {
-            ctx.Response.Redirect(settings.RouteDefinition.RouteSuffix);
+            ctx.Response.Redirect(settings.RouteDefinition.Resource);
             return Task.CompletedTask;
         });
 }
