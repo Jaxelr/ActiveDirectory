@@ -75,8 +75,8 @@ This project targets net 10.0. For previous versions, check the tags. The follow
 
 - [Carter](https://github.com/CarterCommunity/Carter)
 - [Xunit.v3](https://github.com/xunit/xunit)
-- [Swashbuckle.AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
-- [Serilog.AspNetCore](https://github.com/serilog/serilog-aspnetcore/)
+- [Scalar.AspNetCore](https://github.com/scalar/scalar)
+- [Serilog.AspNetCore](https://github.com/serilog/serilog-aspnetcore)
 
 [github-main-img]: https://github.com/Jaxelr/ActiveDirectory/actions/workflows/ci.yml/badge.svg
 [github-main]: https://github.com/Jaxelr/ActiveDirectory/actions/workflows/ci.yml
