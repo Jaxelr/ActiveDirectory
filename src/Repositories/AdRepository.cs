@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.DirectoryServices;
 using System.DirectoryServices.ActiveDirectory;
 using System.Linq;
+using ActiveDirectory.Loggers;
 using ActiveDirectory.Models.Entities;
 using Microsoft.Extensions.Logging;
 
@@ -12,7 +13,7 @@ public class AdRepository : IAdRepository
 {
     private readonly ILogger<AdRepository> logger;
 
-    public IEnumerable<string> Domains = [];
+    public IEnumerable<string> Domains { get; set; } = [];
 
     public AdRepository(ILogger<AdRepository> logger) : this(logger, new string[] { Domain.GetCurrentDomain().Name })
     {
@@ -27,7 +28,7 @@ public class AdRepository : IAdRepository
         }
         catch (Exception ex)
         {
-            logger.LogCritical(ex, "A critical exception doesnt allow to load the correct dependencies");
+            AdLogger.CriticalDependencyLoad(logger, ex);
         }
     }
 
@@ -77,7 +78,7 @@ public class AdRepository : IAdRepository
         }
         catch (Exception x)
         {
-            logger.LogWarning(x, "Method: Authenticate user logged an exception");
+            AdLogger.WarningAuthenticateUser(logger, x);
             return (false, x.Message);
         }
 
@@ -257,4 +258,5 @@ public class AdRepository : IAdRepository
         .AsParallel()
         .Select(GetGroupUsers)
         .SelectMany(y => y);
+
 }
