@@ -76,7 +76,7 @@ csharp_space_after_dot = false
 csharp_space_after_keywords_in_control_flow_statements = true
 csharp_space_after_semicolon_in_for_statement = true
 csharp_space_around_binary_operators = before_and_after
-csharp_space_around_declaration_statements = do_not_ignore
+csharp_space_around_declaration_statements = false
 csharp_space_before_colon_in_inheritance_clause = true
 csharp_space_before_comma = false
 csharp_space_before_dot = false
@@ -161,9 +161,7 @@ csharp_style_unused_value_expression_statement_preference = discard_variable:sil
 csharp_style_prefer_implicitly_typed_lambda_expression = true:suggestion
 csharp_style_prefer_unbound_generic_type_in_nameof = true:suggestion
 csharp_style_prefer_readonly_struct = true:suggestion
-csharp_style_prefer_static_local_function = true:suggestion
-csharp_style_prefer_list_pattern = true:suggestion
-
+csharp_prefer_static_local_function = true:suggestion
 
 # .NET Naming conventions
 [*.{cs,csx,cake}]
