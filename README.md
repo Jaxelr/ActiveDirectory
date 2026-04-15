@@ -48,7 +48,7 @@ The current appsettings.json can be configured manually:
       "CacheEnabled": true
     },
     "RouteDefinition": {
-      "RouteSuffix": "/swagger",
+      "Resource": "/openapi",
       "Version": "v1"
     },
     "Domains": [
