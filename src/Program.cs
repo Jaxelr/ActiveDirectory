@@ -1,13 +1,10 @@
 using ActiveDirectory.Extensions;
 using ActiveDirectory.Models.Internal;
-using ActiveDirectory.Repositories;
 using Carter;
-using Carter.Cache;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,13 +20,8 @@ builder.Configuration.GetSection(nameof(AppSettings)).Bind(settings);
 
 builder.AddCors();
 
-builder.Services.AddCarterCaching(new CachingOption(settings.Cache.CacheMaxSize));
-builder.Services.AddCarter();
-
-builder.Services.AddSingleton(settings); //typeof(AppSettings)
-var _ = (settings.Domains.Empty()) ?
-        builder.Services.AddSingleton<IAdRepository, AdRepository>() :
-        builder.Services.AddSingleton<IAdRepository>(services => new AdRepository(services.GetRequiredService<ILogger<AdRepository>>(), settings.Domains));
+builder.AddCarter(settings);
+builder.AddDependencies(settings);
 
 builder.AddHealthChecks();
 
@@ -54,8 +46,6 @@ app.UseRouting();
 app.UseOpenApi(settings);
 
 app.UseHealthChecks();
-
-app.UseCarterCaching();
-app.MapCarter();
+app.UseCarter();
 
 await app.RunAsync();
