@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using ActiveDirectory.Extensions;
 using ActiveDirectory.Models.Entities;
@@ -48,7 +48,7 @@ public class UserModule : ICarterModule
         app.MapPost("/UserInGroup/{username}", async (string username, IsUserInGroupRequest request, HttpContext ctx) =>
             await ctx.ExecHandler(settings.Cache.CacheTimespan, () =>
             {
-                (bool Belongs, IEnumerable<string> Groups) = repository.IsUserInGroups(username, request.Groups);
+                (bool Belongs, var Groups) = repository.IsUserInGroups(username, request.Groups);
 
                 return new IsUserInGroupResponse()
                 {
