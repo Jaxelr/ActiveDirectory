@@ -2,6 +2,7 @@
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using ActiveDirectory.Models.Operations;
 using ActiveDirectory.Repositories;
@@ -9,7 +10,6 @@ using ActiveDirectoryTests.Fakes;
 using ActiveDirectoryTests.Mocks;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 
 namespace ActiveDirectoryTests.Unit;
 
@@ -74,7 +74,7 @@ public class UserModuleTests : IDisposable
     {
         //Arrange
         var user = new FakeUser();
-        string request = JsonConvert.SerializeObject(new IsUserInGroupRequest() { Groups = [user.Group] });
+        string request = JsonSerializer.Serialize(new IsUserInGroupRequest() { Groups = [user.Group] });
 
         //Act
         var res = await client.PostAsync($"UserInGroup/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson), TestContext.Current.CancellationToken);
@@ -90,7 +90,7 @@ public class UserModuleTests : IDisposable
     {
         //Arrange
         var user = new FakeUser();
-        string request = JsonConvert.SerializeObject(new AuthenticUserRequest() { Password = FakeUser.Password });
+        string request = JsonSerializer.Serialize(new AuthenticUserRequest() { Password = FakeUser.Password });
 
         //Act
         var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson), TestContext.Current.CancellationToken);
@@ -105,7 +105,7 @@ public class UserModuleTests : IDisposable
         //Arrange
         var user = new FakeUser();
 
-        string request = JsonConvert.SerializeObject(new AuthenticUserRequest() { Password = string.Empty });
+        string request = JsonSerializer.Serialize(new AuthenticUserRequest() { Password = string.Empty });
 
         //Act
         var res = await client.PostAsync($"AuthenticateUser/{user.UserName}", new StringContent(request, Encoding.UTF8, ApplicationJson), TestContext.Current.CancellationToken);
