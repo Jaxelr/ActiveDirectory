@@ -3,8 +3,7 @@ version: 2
 updates:
   - package-ecosystem: "nuget"
     directories:
-      - "/src/ActiveDirectory" #ActiveDirectory.csproj
-      - "/src/ActiveDirectory.Models" #ActiveDirectory.Models.csproj
+      - "/src" #ActiveDirectory.csproj
       - "/tests" #ActiveDirectoryTests.csproj
     schedule:
       interval: "weekly"
