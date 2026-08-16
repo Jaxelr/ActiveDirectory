@@ -19,3 +19,4 @@ steps:
   displayName: 'dotnet test'
   inputs:
     command: 'test'
+    publishTestResults: false
