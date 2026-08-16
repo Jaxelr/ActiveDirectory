@@ -31,7 +31,10 @@ public static class SwaggerExtensions
     public static WebApplication UseOpenApi(this WebApplication app, AppSettings settings)
     {
         app.MapOpenApi($"{settings.RouteDefinition.Resource}/{settings.RouteDefinition.Version}.json");
-        app.MapScalarApiReference($"{settings.RouteDefinition.Resource}");
+        app.MapScalarApiReference(settings.RouteDefinition.Resource, options => options.WithOpenApiRoutePattern
+        (
+                $"{settings.RouteDefinition.Resource}/{settings.RouteDefinition.Version}.json")
+        );
         return app;
     }
 }
