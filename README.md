@@ -20,9 +20,9 @@ Some configurations that are included on the appsettings are:
 
 1. Domains - Optional: if left empty, it will pick the current domain where the service is running. If multiple domains are defined on the Domains array, the endpoint will make requests to all of them. This was a very specific scenario that a client had.
 1. Addresses - Optional: if left empty the current host is selected. Urls defined here, will be used as endpoints on the open ui page for validation.
-1. Route Definition - Required: These values are attached to the openapi declaration and are needed for the defined metadata info
-   1. Route Suffix - The path where the swagger json will be shown.
-   1. Version - The swagger.json file version.
+1. Route Definition - Required: These values configure the OpenAPI document and Scalar API reference.
+   1. Resource - The path where the Scalar API reference is served.
+   1. Version - The OpenAPI document name and version. With the default configuration, the document is served at `/openapi/v1.json`.
 1. Cache Configurations - Required: Cache Enabled flag that will enable/disable the cache. If enabled, the following keys must be populated.
    1. Cache Max Size - the maximum size in bytes of each cached response
    1. Cache Timespan - the time in seconds that the value will be kept alive on the cache store
@@ -63,17 +63,18 @@ The current appsettings.json can be configured manually:
 
 ## Health Check Feature
 
-The endpoint of root/healthcheck for each requests includes a json heartbeat to determine if the service is online. This was done using the library of [Microsoft.Extensions.Diagnostics.HealthChecks](https://github.com/dotnet/aspnetcore/tree/main/src/HealthChecks) for more information check the github repo.
+The endpoint of /healthcheck for each requests includes a json heartbeat to determine if the service is online. This was done using the library of [Microsoft.Extensions.Diagnostics.HealthChecks](https://github.com/dotnet/aspnetcore/tree/main/src/HealthChecks) for more information check the github repo.
 
-## OpenApi
+## OpenAPI
 
-The OpenApi version used is Version 3.0.4
+The service uses the OpenAPI 3.0 specification, which is the ASP.NET Core default for .NET 10. The Scalar API reference is available at `/openapi`.
 
 ## Dependencies & Libraries
 
 This project targets net 10.0. For previous versions, check the tags. The following oss libraries are used on this repo as dependencies:
 
 - [Carter](https://github.com/CarterCommunity/Carter)
+- [Carter.Cache](https://github.com/Jaxelr/Carter.Cache)
 - [Xunit.v3](https://github.com/xunit/xunit)
 - [Scalar.AspNetCore](https://github.com/scalar/scalar)
 - [Serilog.AspNetCore](https://github.com/serilog/serilog-aspnetcore)
