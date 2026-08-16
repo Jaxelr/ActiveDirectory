@@ -46,6 +46,6 @@ app.UseRouting();
 app.UseOpenApi(settings);
 
 app.UseHealthChecks();
-app.UseCarter();
+app.UseCarter(settings);
 
 await app.RunAsync();
