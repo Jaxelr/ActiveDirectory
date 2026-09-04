@@ -1,4 +1,4 @@
-﻿namespace ActiveDirectory.Models.Operations;
+namespace ActiveDirectory.Models.Operations;
 
 public class AuthenticUserResponse
 {

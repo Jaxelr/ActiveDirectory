@@ -1,4 +1,4 @@
-﻿using ActiveDirectory.Models.Operations;
+using ActiveDirectory.Models.Operations;
 using FluentValidation;
 
 namespace ActiveDirectory.Validation;
