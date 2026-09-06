@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using ActiveDirectory.Extensions;
 
 namespace ActiveDirectoryTests.Unit;

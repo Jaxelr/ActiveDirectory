@@ -2,6 +2,7 @@ using System;
 using Microsoft.Extensions.Logging;
 
 namespace ActiveDirectory.Loggers;
+
 internal static partial class AdLogger
 {
     [LoggerMessage(Level = LogLevel.Critical, Message = "A critical exception doesnt allow to load the correct dependencies")]

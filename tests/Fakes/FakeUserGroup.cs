@@ -1,4 +1,4 @@
-﻿using ActiveDirectory.Models.Entities;
+using ActiveDirectory.Models.Entities;
 
 namespace ActiveDirectoryTests.Fakes;
 

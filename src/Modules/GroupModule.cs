@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using ActiveDirectory.Extensions;
 using ActiveDirectory.Models.Entities;
 using ActiveDirectory.Models.Internal;

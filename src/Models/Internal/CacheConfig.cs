@@ -1,4 +1,4 @@
-﻿namespace ActiveDirectory.Models.Internal;
+namespace ActiveDirectory.Models.Internal;
 
 public record CacheConfig
 {
