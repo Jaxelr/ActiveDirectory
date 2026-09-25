@@ -4,7 +4,6 @@ root = true
 #All Files
 [*]
 charset = utf-8
-end_of_line = crlf
 indent_size = 4
 indent_style = space
 insert_final_newline = true
@@ -43,7 +42,6 @@ indent_size = 2
 
 # Bash Files
 [*.sh]
-end_of_line = lf
 
 # F# Files
 [*.{fs,fsx,fsi}]
