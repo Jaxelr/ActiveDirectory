@@ -67,11 +67,11 @@ The endpoint of /healthcheck for each requests includes a json heartbeat to dete
 
 ## OpenAPI
 
-The service explicitly uses the OpenAPI 3.1 specification to preserve compatibility when upgrading .NET. The Scalar API reference is available at `/openapi`.
+The service uses the OpenAPI 3.1.2 specification. The Scalar API reference is available at `/openapi`.
 
 ## Dependencies & Libraries
 
-This project targets .NET 11 and requires the .NET 11 SDK. For previous versions, check the tags. The following oss libraries are used on this repo as dependencies:
+This project targets net 11.0. For previous versions, check the tags. The following oss libraries are used on this repo as dependencies:
 
 - [Carter](https://github.com/CarterCommunity/Carter)
 - [Carter.Cache](https://github.com/Jaxelr/Carter.Cache)
